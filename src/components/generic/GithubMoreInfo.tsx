@@ -10,7 +10,7 @@ interface GithubMoreInfoProps {
 
 const GithubMoreInfo = ({className} : GithubMoreInfoProps) => {
     return (
-        <p className={`githubMoreInfo__wrapper ${className ? className : ''}`}>
+        <p href='' className={`githubMoreInfo__wrapper  ${className ? className : ''}`}>
             <svg
                 className="githubMoreInfo"
                 viewBox="0 0 16 16"

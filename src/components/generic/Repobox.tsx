@@ -14,29 +14,38 @@ interface RepoboxProps {
 
 const Repobox = () => {
     return (
-      <Draggable
-      handle=".handle"
-      defaultPosition={{x: 0, y: 0}}
-      position={null}
-      scale={1}>
-        <div className="repobox">
-            <a href="https://www.github.com/golota60" style={{textDecoration: 'none'}}>
+        <Draggable
+            handle=".handle"
+            defaultPosition={{
+            x: 0,
+            y: 0
+        }}
+            position={null}
+            scale={1}>
+            <div className="repobox">
+
                 <span className="repobox__title__wrapper">
-                    <span className="repobox__title githubfont">
-                    <BookIcon className="repobox__icon"/>
-                    szymon-wiszczuk
+                    <span>
+                        <a
+                            href="https://www.github.com/golota60"
+                        className="__link"
+                        >
+                            <span className="repobox__title githubfont">
+                                <BookIcon className="repobox__icon"/>
+                                szymon-wiszczuk
+                            </span>
+                        </a>
                     </span>
-                    <GithubMoreInfo className="handle"/>
+                    <GithubMoreInfo className="handle repobox__dragger"/>
                 </span>
-            </a>
-            <div className="repobox__description githubfont">
-                The best JS developer around
+                <div className="repobox__description githubfont">
+                    The best JS developer around
+                </div>
+                <div className="repobox__language githubfont">
+                    <GithubLanguageIcon/>
+                    <span className="repobox__language__text githubfont">JavaScript</span>
+                </div>
             </div>
-            <div className="repobox__language githubfont">
-                <GithubLanguageIcon/>
-                <span className="repobox__language__text githubfont">JavaScript</span>
-            </div>
-        </div>
         </Draggable>
     );
 }

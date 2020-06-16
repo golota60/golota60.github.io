@@ -1,65 +1,68 @@
 @import "../../variables.scss";
 
 .githubfont {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji;
-  font-size: 1.2rem;
-  line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
 
 .repobox {
-  padding: 16px;
-  border: 1px solid $light-gray;
-  width: 40rem;
-  height: 10rem;
-  border-radius: 0.3rem;
-  position: relative;
+    padding: 16px;
+    border: 1px solid $light-gray;
+    width: 40rem;
+    height: 10rem;
+    border-radius: 0.3rem;
+    position: relative;
 
-  &__description {
-    margin-top: 0.8rem;
-    color: $gray;
-  }
-
-  &__language {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    color: $gray;
-
-    &__text {
-      padding-left: 4px;
-    }
-  }
-
-  &__icon {
-    padding-right: 0.7rem;
-    margin-top: 0.1rem;
-    fill: $gray;
-  }
-
-  &__title {
-    color: $github-blue;
-    font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 2.1rem;
-    cursor: pointer;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    &:hover {
-      text-decoration: underline;
+    &__dragger {
+        cursor: grab;
     }
 
-    &__wrapper {
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
+    &__description {
+        margin-top: 0.8rem;
+        color: $gray;
+    }
+
+    &__language {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        bottom: 16px;
+        left: 16px;
+        color: $gray;
+
+        &__text {
+            padding-left: 4px;
+        }
+    }
+
+    &__icon {
+        padding-right: 0.7rem;
+        margin-top: 0.1rem;
+        fill: $gray;
+    }
+
+    &__title {
         color: $github-blue;
-      }
+        font-weight: 600;
+        font-size: 1.4rem;
+        line-height: 2.1rem;
+        cursor: pointer;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        &__wrapper {
+            display: flex;
+            justify-content: space-between;
+
+            .__link {
+              text-decoration: none;
+              &:hover {
+                color: $github-blue;
+                text-decoration: underline;
+              }
+            }
+        }
     }
-  }
 }
