@@ -21,7 +21,7 @@ const returnNextArrayItem = (array: Array<any>, currentItem: any): any => {
 
   return (
     <>
-    <TextWrapper textType="h2">{currentText}</TextWrapper>
+    <TextWrapper textType="h2" className="textlooper">{currentText}</TextWrapper>
     </>
   );
 }

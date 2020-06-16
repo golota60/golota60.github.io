@@ -23,6 +23,25 @@
     align-items: center;
     justify-content: center;
 
+    &__repoboxWrapper {
+      display: flex;
+    }
+
+    &__clickme {
+      position: relative;
+      top: 1.5rem;
+      left: 0.5rem;
+      font-size: 1.2rem;
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+
+      &__arr {
+        width: 1.7rem;
+        padding-right: 0.5rem;
+      }
+    }
+
     &__github {
       display: flex;
       flex-direction: column;

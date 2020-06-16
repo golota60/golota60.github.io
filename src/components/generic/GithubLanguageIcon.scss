@@ -1,0 +1,16 @@
+.languageIcon {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: linear-gradient(220deg, rgba(176, 83, 226, 0.700717787114846) 0%, rgba(84, 22, 252, 1) 100%);
+  border-radius: 50%;
+
+  &__HTML {
+  }
+  &__CSS {
+  }
+  &__typescript {
+  }
+  &__javascript {
+  }
+}
