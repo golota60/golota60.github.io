@@ -20,7 +20,7 @@ const Repobox = () => {
       position={null}
       scale={1}>
         <div className="repobox">
-            <a>
+            <a href="https://www.github.com/golota60" style={{textDecoration: 'none'}}>
                 <span className="repobox__title__wrapper">
                     <span className="repobox__title githubfont">
                     <BookIcon className="repobox__icon"/>
