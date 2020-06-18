@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import './TextLooper.scss';
-import TextWrapper from './TextWrapper';
 
-interface TextLooperInterface {
+interface ElementLooperInterface {
   textArray: Array<string>;
   msTransitionTime: number;
 }
 
-const TextLooper = ({textArray, msTransitionTime: transitionTime}: TextLooperInterface) => {
+const ElementLooper = ({textArray, msTransitionTime}: ElementLooperInterface) => {
   const [currentText, setCurrentText] = useState(textArray[0]);
 
 const returnNextArrayItem = (array: Array<any>, currentItem: any): any => {
@@ -17,7 +16,7 @@ const returnNextArrayItem = (array: Array<any>, currentItem: any): any => {
 
     setTimeout(() => {
       setCurrentText(returnNextArrayItem(textArray, currentText));
-    }, transitionTime);
+    }, msTransitionTime);
 
   return (
     <>
@@ -26,4 +25,4 @@ const returnNextArrayItem = (array: Array<any>, currentItem: any): any => {
   );
 }
 
-export default TextLooper;
+export default ElementLooper;

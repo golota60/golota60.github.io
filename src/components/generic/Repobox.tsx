@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import Draggable from 'react-draggable';
 import './Repobox.scss';
 import BookIcon from '../BookIcon';
 import GithubLanguageIcon from './GithubLanguageIcon';
 import GithubMoreInfo from './GithubMoreInfo';
+import ElementLooper from './TextLooper';
 
 interface RepoboxProps {
     reponame : string;
-    description : string;
-    language : string;
-    color : string;
+    description
+        ?
+        : string;
+    languages : Array < string >;
+    languageMsTransitionTime : number;
 }
 
-const Repobox = () => {
-const [isPressed, setPressed] = useState(false);
+const Repobox = ({reponame, description, languages, languageMsTransitionTime} : RepoboxProps) => {
+    const [isPressed,
+        setPressed] = useState(false);
     return (
         <Draggable
             handle=".handle"
@@ -28,24 +32,25 @@ const [isPressed, setPressed] = useState(false);
             <div className="repobox">
                 <span className="repobox__title__wrapper">
                     <span>
-                        <a
-                            href="https://www.github.com/golota60"
-                        className="__link"
-                        >
+                        <a href="https://www.github.com/golota60" className="__link">
                             <span className="repobox__title githubfont">
-                                <BookIcon className="repobox__icon"/>
-                                szymon-wiszczuk
+                                <BookIcon className="repobox__icon"/> {reponame}
                             </span>
                         </a>
                     </span>
-                    <GithubMoreInfo className={`handle repobox__dragger ${isPressed ? 'grabbing' : ''}`}/>
+                    <GithubMoreInfo
+                        className={`handle repobox__dragger ${isPressed
+                        ? 'grabbing'
+                        : ''}`}/>
                 </span>
                 <div className="repobox__description githubfont">
-                    The best JS developer around
+                    {description}
                 </div>
                 <div className="repobox__language githubfont">
                     <GithubLanguageIcon/>
-                    <span className="repobox__language__text githubfont">JavaScript</span>
+                    <span className="repobox__language__text githubfont">
+                        <ElementLooper textArray={languages} msTransitionTime={languageMsTransitionTime} />
+                    </span>
                 </div>
             </div>
         </Draggable>

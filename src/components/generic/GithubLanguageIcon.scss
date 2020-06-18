@@ -1,16 +1,32 @@
-.languageIcon {
-  display: block;
-  width: 1.2rem;
-  height: 1.2rem;
-  background: linear-gradient(220deg, rgba(176, 83, 226, 0.700717787114846) 0%, rgba(84, 22, 252, 1) 100%);
-  border-radius: 50%;
+@import "../../variables.scss";
 
-  &__HTML {
-  }
-  &__CSS {
-  }
-  &__typescript {
-  }
-  &__javascript {
-  }
+.languageIcon {
+    display: block;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background: linear-gradient(red, yellow, green, violet);
+    transform: rotate(45deg);
+
+    &__HTML {
+        background-color: $red;
+    }
+    &__CSS {
+        background-color: $github-css;
+    }
+    &__SASS {
+        background-color: $github-sass;
+    }
+    &__Typescript {
+        background-color: $github-typescript;
+    }
+    &__Javascript {
+      background-color: $github-javascript;
+    }
+    &__Node {
+      background-color: $github-node;
+    }
+    &__Express {
+      background-color: $github-express;
+    }
 }
