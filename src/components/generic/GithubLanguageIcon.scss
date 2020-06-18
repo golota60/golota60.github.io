@@ -1,32 +1,35 @@
 @import "../../variables.scss";
 
 .languageIcon {
-    display: block;
-    width: 1.2rem;
-    height: 1.2rem;
-    border-radius: 50%;
-    background: linear-gradient(red, yellow, green, violet);
-    transform: rotate(45deg);
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: linear-gradient(to right, rgb(238, 141, 76), yellow, violet);
+  transform: rotate(45deg);
 
-    &__HTML {
-        background-color: $red;
-    }
-    &__CSS {
-        background-color: $github-css;
-    }
-    &__SASS {
-        background-color: $github-sass;
-    }
-    &__Typescript {
-        background-color: $github-typescript;
-    }
-    &__Javascript {
-      background-color: $github-javascript;
-    }
-    &__Node {
-      background-color: $github-node;
-    }
-    &__Express {
-      background-color: $github-express;
-    }
+  &__HTML {
+    background: $github-html;
+  }
+  &__CSS {
+    background: $github-css;
+  }
+  &__SASS {
+    background: $github-sass;
+  }
+  &__Typescript {
+    background: $github-typescript;
+  }
+  &__Javascript {
+    background: $github-javascript;
+  }
+  &__Node {
+    background: $github-node;
+  }
+  &__Express {
+    background: $github-express;
+  }
+  &__React {
+    background: $github-react;
+  }
 }

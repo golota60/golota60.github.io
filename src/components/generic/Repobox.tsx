@@ -5,6 +5,7 @@ import BookIcon from '../BookIcon';
 import GithubLanguageIcon from './GithubLanguageIcon';
 import GithubMoreInfo from './GithubMoreInfo';
 import ElementLooper from './TextLooper';
+import { returnNextArrayItem } from '../../helpers/helpers';
 
 interface RepoboxProps {
     reponame : string;
@@ -18,6 +19,12 @@ interface RepoboxProps {
 const Repobox = ({reponame, description, languages, languageMsTransitionTime} : RepoboxProps) => {
     const [isPressed,
         setPressed] = useState(false);
+
+    const [currentColor, setCurrentColor] = useState(languages[0]);
+      setTimeout(() => {
+        setCurrentColor(returnNextArrayItem(languages, currentColor));
+      }, 1500);
+
     return (
         <Draggable
             handle=".handle"
@@ -47,9 +54,11 @@ const Repobox = ({reponame, description, languages, languageMsTransitionTime} : 
                     {description}
                 </div>
                 <div className="repobox__language githubfont">
-                    <GithubLanguageIcon/>
+                    <GithubLanguageIcon color={currentColor}/>
                     <span className="repobox__language__text githubfont">
-                        <ElementLooper textArray={languages} msTransitionTime={languageMsTransitionTime} />
+                        <ElementLooper
+                            textArray={languages}
+                            msTransitionTime={languageMsTransitionTime}/>
                     </span>
                 </div>
             </div>

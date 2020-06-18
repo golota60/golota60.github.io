@@ -19,6 +19,7 @@ const technologies = [
 ];
 
 const App = () => {
+
     return (
         <div className="App">
             <div className="information">
