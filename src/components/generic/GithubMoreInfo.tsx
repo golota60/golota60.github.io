@@ -5,12 +5,19 @@ interface GithubMoreInfoProps {
     onClick
         ? ()
         : void;
-        className?: string;
+    className?: string;
+    onMouseDown
+        ? (e:  any)
+        : void;
 }
 
-const GithubMoreInfo = ({className} : GithubMoreInfoProps) => {
+const GithubMoreInfo = ({className, onMouseDown = () => {}} : GithubMoreInfoProps) => {
     return (
-        <p href='' className={`githubMoreInfo__wrapper  ${className ? className : ''}`}>
+        <p
+            onMouseDown={onMouseDown}
+            className={`githubMoreInfo__wrapper ${className
+            ? className
+            : ''}`}>
             <svg
                 className="githubMoreInfo"
                 viewBox="0 0 16 16"

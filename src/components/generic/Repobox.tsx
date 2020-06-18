@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import './Repobox.scss';
 import BookIcon from '../BookIcon';
@@ -13,6 +13,7 @@ interface RepoboxProps {
 }
 
 const Repobox = () => {
+const [isPressed, setPressed] = useState(false);
     return (
         <Draggable
             handle=".handle"
@@ -21,9 +22,10 @@ const Repobox = () => {
             y: 0
         }}
             position={null}
-            scale={1}>
+            scale={1}
+            onStart={() => setPressed(true)}
+            onStop={() => setPressed(false)}>
             <div className="repobox">
-
                 <span className="repobox__title__wrapper">
                     <span>
                         <a
@@ -36,7 +38,7 @@ const Repobox = () => {
                             </span>
                         </a>
                     </span>
-                    <GithubMoreInfo className="handle repobox__dragger"/>
+                    <GithubMoreInfo className={`handle repobox__dragger ${isPressed ? 'grabbing' : ''}`}/>
                 </span>
                 <div className="repobox__description githubfont">
                     The best JS developer around
