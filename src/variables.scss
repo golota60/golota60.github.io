@@ -1,11 +1,13 @@
+//regular colors
 $black: black;
-
 $dark-gray: rgb(34, 34, 34);
 $gray: #586069;
 $light-gray: #d1d5da;
-
+$light-blue: rgb(76, 159, 253);
+$red: rgb(247, 67, 67);
 $white: white;
 
+//github widget colors
 $github-blue: #0366d6;
 $github-javascript: #f1e05a;
 $github-typescript: #2b7489;
@@ -16,5 +18,8 @@ $github-node: #026E00;
 $github-express: #11ca39;
 $github-react: #61DAFB;
 
-$light-blue: rgb(76, 159, 253);
-$red: rgb(247, 67, 67);
+//breakpoints
+$size-xs: 441px;
+$size-sm: 576px;
+$size-md: 768px;
+$size-lg: 1280px;

@@ -1,62 +1,81 @@
+@import '../variables.scss';
+
 .App {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 
-  .image {
-    &__coffee {
-      width: 30rem;
+	.image {
+		&__coffee {
+			width: 30rem;
       height: 30rem;
-    }
-    &__github {
-      width: 10rem;
-      height: 10rem;
-    }
-  }
+      @media(max-width: $size-xs) {
+        width: 25rem;
+        height: 25rem;
+        margin-top: -2rem;
+      }
+		}
+		&__github {
+			width: 10rem;
+			height: 10rem;
+		}
+	}
 
-  .information {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	.information {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
     justify-content: center;
-
-    &__repoboxWrapper {
-      display: flex;
-    }
-
-    &__clickme {
-      position: relative;
-      top: 1.5rem;
-      left: 0.5rem;
-      font-size: 1.2rem;
-      line-height: 1.5;
-      display: flex;
-      align-items: flex-start;
-
-      &__arr {
-        width: 1.7rem;
-        padding-right: 0.5rem;
+    
+    &_repo {
+      @media(max-width: $size-xs) {
+        width: 28rem;
+        height: 8rem;
+        margin-top: -2rem;
       }
     }
 
-    &__github {
+		&__repoboxWrapper {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
+		}
 
-    &__name {
-      margin-bottom: 0.5rem;
-    }
+		&__clickme {
+			font-size: 1.2rem;
+			line-height: 1.5;
+			display: flex;
+			align-items: flex-start;
+			position: relative;
+			left: 30rem;
+      top: -11.5rem;
+      
+      @media(max-width: $size-xs) {
+        display: none;
+      }
 
-    &__technologies {
-      width: 30rem;
-      margin-left: 7rem;
-      margin-bottom: 3rem;
-    }
-  }
+			&__arr {
+				width: 1.7rem;
+				padding-right: 0.5rem;
+			}
+		}
+
+		&__github {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&__name {
+			margin-bottom: 0.5rem;
+		}
+
+		&__technologies {
+			width: 30rem;
+			margin-left: 7rem;
+			margin-bottom: 3rem;
+		}
+	}
 }

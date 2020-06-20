@@ -14,9 +14,10 @@ interface RepoboxProps {
         : string;
     languages : Array < string >;
     languageMsTransitionTime : number;
+    className?: string
 }
 
-const Repobox = ({reponame, description, languages, languageMsTransitionTime} : RepoboxProps) => {
+const Repobox = ({reponame, description, languages, languageMsTransitionTime, className = ''} : RepoboxProps) => {
     const [isPressed,
         setPressed] = useState(false);
 
@@ -36,7 +37,7 @@ const Repobox = ({reponame, description, languages, languageMsTransitionTime} : 
             scale={1}
             onStart={() => setPressed(true)}
             onStop={() => setPressed(false)}>
-            <div className="repobox">
+            <div className={`repobox ${className}`}>
                 <span className="repobox__title__wrapper">
                     <span>
                         <a href="https://www.github.com/golota60" className="__link">
