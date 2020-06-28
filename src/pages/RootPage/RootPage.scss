@@ -1,0 +1,74 @@
+@import '../../variables.scss';
+
+	.image {
+		&__coffee {
+			width: 30rem;
+      height: 30rem;
+      @media(max-width: $size-xs) {
+        width: 25rem;
+        height: 25rem;
+        margin-top: -2rem;
+      }
+		}
+		&__github {
+			width: 10rem;
+			height: 10rem;
+		}
+	}
+
+	.information {
+    width: 100vw;
+    height: 100vh;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+    justify-content: center;
+    
+    &_repo {
+      @media(max-width: $size-xs) {
+        width: 28rem;
+        height: 8rem;
+        margin-top: -2rem;
+      }
+    }
+
+		&__repoboxWrapper {
+      display: flex;
+		}
+
+		&__clickme {
+			font-size: 1.2rem;
+			line-height: 1.5;
+			display: flex;
+			align-items: flex-start;
+			position: relative;
+			left: 30rem;
+      top: -11.5rem;
+      
+      @media(max-width: $size-xs) {
+        display: none;
+      }
+
+			&__arr {
+				width: 1.7rem;
+				padding-right: 0.5rem;
+			}
+		}
+
+		&__github {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		&__name {
+			margin-bottom: 0.5rem;
+		}
+
+		&__technologies {
+			width: 30rem;
+			margin-left: 7rem;
+			margin-bottom: 3rem;
+		}
+	}

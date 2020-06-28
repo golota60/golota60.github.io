@@ -5,9 +5,11 @@
   "author": "Szymon Wiszczuk",
   "license": "MIT",
   "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-draggable": "^4.4.3"
+    "react-draggable": "^4.4.3",
+    "react-router-dom": "^5.2.0"
   },
   "scripts": {
     "start": "parcel src/index.html",
