@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><link rel="stylesheet" href="/index.HASH_REF_c5001003226b617ff64f46c01681345d.css">
+  <meta charset="UTF-8">
+  <title>Szymon Wiszczuk - JS Dev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.HASH_REF_7a866f0bb3da72551c967374178728f7.ico">
+  <!-- <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script> -->
+  <!-- <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script> -->
+  <link href="https://fonts.cdnfonts.com/css/tw-cen-mt" rel="stylesheet">
+  <link href="//db.onlinewebfonts.com/c/d4d6e1a6527a21185217393c427a52cb?family=Segoe+UI+Semibold" rel="stylesheet" type="text/css">
+  <style>* {
+      font-size: 10px;
+      /*rem size*/
+      font-family: 'Tw Cen MT', sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+</style>
+</head>
+
+<body>
+  <noscript>Enable Javascript to view this page.</noscript>
+  <div id="root"></div>
+  <script src="/index.HASH_REF_b5ccbe5b544ee99c46ef8e94ed731f93.js"></script>
+</body>
+
+</html>

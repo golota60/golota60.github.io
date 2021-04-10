@@ -1,0 +1,1 @@
+module.exports = require('./bundle-url').getBundleURL() + "coffee.HASH_REF_66ad9330f20ab1ee3c8a5b111a408a3a.svg"

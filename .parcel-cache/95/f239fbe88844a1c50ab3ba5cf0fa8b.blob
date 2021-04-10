@@ -1,0 +1,170 @@
+var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/YayfetchLogo.tsx";
+  const YayfetchLogo = ({className}) => {
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 58 14",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 9,
+          columnNumber: 5
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("g", {
+        id: "Layer_2",
+        "data-name": "Layer 2",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 10,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("g", {
+        id: "Layer_1-2",
+        "data-name": "Layer 1",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 11,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("path", {
+        style: {
+          fill: "#ff6693"
+        },
+        d: "M7.78,0h0l.79.42,2.68,4,.87-.07L13.89.55,14.75,0h0l.85,1.34h0L10,13.45,9.18,14h0L8.3,12.66h0l2.41-5.22,0-.49L7,1.47H7Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 12,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        style: {
+          fill: "#ff6693"
+        },
+        d: "M7.32,1.23a.53.53,0,0,1,1,0l2.88,6.33a.51.51,0,0,1-.46.72h0a.51.51,0,0,1-.46-.3L9.61,6.59a.54.54,0,0,0-.48-.31H6.5A.54.54,0,0,0,6,6.59L5.39,8a.51.51,0,0,1-.46.3h0a.51.51,0,0,1-.46-.72Zm0,2.19-.5,1.11a.53.53,0,0,0,.49.75h1a.53.53,0,0,0,.48-.75l-.5-1.11A.53.53,0,0,0,7.32,3.42Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 16,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        style: {
+          fill: "#ff6693"
+        },
+        d: "M8.6,1.47,4.93,7l0,.49L7.3,12.66h0L6.45,14h0l-.86-.55L0,1.34H0L.86,0h0l.85.55L3.47,4.37l.87.07L7,.42,7.81,0h0L8.6,1.47Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 20,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M17.86,4l1.27,3.43c.13.38.28.84.37,1.19h0c.1-.35.23-.8.37-1.22L21.05,4h1.12L20.58,8.13c-.75,2-1.27,3-2,3.63a2.7,2.7,0,0,1-1.29.68L17,11.56A3.05,3.05,0,0,0,18,11a3.27,3.27,0,0,0,.88-1.17.8.8,0,0,0,.09-.26,1.18,1.18,0,0,0-.07-.27L16.71,4Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 24,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M26.29,9.79l-.08-.73h0a2.14,2.14,0,0,1-1.77.87,1.66,1.66,0,0,1-1.78-1.67c0-1.41,1.25-2.17,3.49-2.16V6A1.19,1.19,0,0,0,24.8,4.64a2.87,2.87,0,0,0-1.52.43L23,4.37A3.63,3.63,0,0,1,25,3.86c1.78,0,2.21,1.21,2.21,2.37V8.4a8.32,8.32,0,0,0,.09,1.39Zm-.15-3c-1.15,0-2.46.18-2.46,1.31a.94.94,0,0,0,1,1,1.44,1.44,0,0,0,1.4-1,1.2,1.2,0,0,0,.06-.33Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 25,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M29.15,4l1.27,3.43c.13.38.28.84.37,1.19h0c.11-.35.23-.8.37-1.22L32.34,4h1.12L31.87,8.13c-.75,2-1.27,3-2,3.63a2.7,2.7,0,0,1-1.29.68l-.27-.88a2.94,2.94,0,0,0,.93-.52,3.06,3.06,0,0,0,.88-1.17.8.8,0,0,0,.09-.26.81.81,0,0,0-.07-.27L28,4Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 26,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M34.53,9.79v-5h-.82V4h.82V3.71a2.72,2.72,0,0,1,.67-2,2,2,0,0,1,1.41-.54,2.5,2.5,0,0,1,.9.16l-.14.82A1.62,1.62,0,0,0,36.7,2c-.9,0-1.13.79-1.13,1.68V4H37v.8h-1.4v5Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 27,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M38.36,7.08a1.86,1.86,0,0,0,2,2A3.75,3.75,0,0,0,42,8.8l.18.75a4.63,4.63,0,0,1-1.93.36A2.69,2.69,0,0,1,37.35,7c0-1.75,1-3.13,2.72-3.13a2.45,2.45,0,0,1,2.4,2.73,2.72,2.72,0,0,1,0,.49Zm3.09-.75A1.51,1.51,0,0,0,40,4.61a1.75,1.75,0,0,0-1.62,1.72Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 28,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M45.05,2.32V4h1.51v.8H45.05V7.92c0,.72.2,1.13.79,1.13A2.6,2.6,0,0,0,46.45,9l0,.79a2.67,2.67,0,0,1-.93.14,1.44,1.44,0,0,1-1.14-.44A2.15,2.15,0,0,1,44,8V4.79h-.9V4H44V2.6Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 29,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M51.82,9.58a4,4,0,0,1-1.67.33,2.75,2.75,0,0,1-2.89-3,2.94,2.94,0,0,1,3.12-3.08,3.44,3.44,0,0,1,1.46.3L51.6,5a2.5,2.5,0,0,0-1.22-.27A2,2,0,0,0,48.33,6.9a2,2,0,0,0,2,2.17,3.07,3.07,0,0,0,1.3-.28Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 30,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        d: "M53.06,1.28h1V4.9h0a1.91,1.91,0,0,1,.75-.74A2.16,2.16,0,0,1,56,3.86c.78,0,2,.48,2,2.48V9.79H56.94V6.46c0-.94-.35-1.73-1.34-1.73a1.52,1.52,0,0,0-1.42,1.06,1.26,1.26,0,0,0-.07.5v3.5h-1Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 31,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("path", {
+        style: {
+          fill: "#ff6693"
+        },
+        d: "M5.21,8.48c.3-.78.68-2,.68-2L4.88,8Z",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("polygon", {
+        style: {
+          fill: "#ff6693"
+        },
+        points: "10.14 7.75 10.52 8.59 10.69 7.91 10.14 7.75",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 36,
+          columnNumber: 11
+        }
+      }))))
+    );
+  };
+  _c = YayfetchLogo;
+  exports.default = YayfetchLogo;
+  var _c;
+  $RefreshReg$(_c, "YayfetchLogo");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

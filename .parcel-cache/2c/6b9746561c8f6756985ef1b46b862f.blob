@@ -1,0 +1,156 @@
+var helpers = require("../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require('react');
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _reactDraggable = require('react-draggable');
+  var _reactDraggableDefault = _parcelHelpers.interopDefault(_reactDraggable);
+  require('./Repobox.scss');
+  var _BookIcon = require('../BookIcon');
+  var _BookIconDefault = _parcelHelpers.interopDefault(_BookIcon);
+  var _GithubLanguageIcon = require('./GithubLanguageIcon');
+  var _GithubLanguageIconDefault = _parcelHelpers.interopDefault(_GithubLanguageIcon);
+  var _GithubMoreInfo = require('./GithubMoreInfo');
+  var _GithubMoreInfoDefault = _parcelHelpers.interopDefault(_GithubMoreInfo);
+  var _TextLooper = require('./TextLooper');
+  var _TextLooperDefault = _parcelHelpers.interopDefault(_TextLooper);
+  var _helpersHelpers = require('../../helpers/helpers');
+  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/generic/Repobox.tsx", _s = $RefreshSig$();
+  const Repobox = ({reponame, description, languages, languageMsTransitionTime, className = ''}) => {
+    _s();
+    const [isPressed, setPressed] = _react.useState(false);
+    const [currentColor, setCurrentColor] = _react.useState(languages[0]);
+    setTimeout(() => {
+      setCurrentColor(_helpersHelpers.returnNextArrayItem(languages, currentColor));
+    }, 1500);
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement(_reactDraggableDefault.default, {
+        handle: ".handle",
+        defaultPosition: {
+          x: 0,
+          y: 0
+        },
+        position: null,
+        scale: 1,
+        onStart: () => setPressed(true),
+        onStop: () => setPressed(false),
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 30,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: `repobox ${className}`,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 40,
+          columnNumber: 13
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("span", {
+        className: "repobox__title__wrapper",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 41,
+          columnNumber: 17
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("span", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 42,
+          columnNumber: 21
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("a", {
+        href: "https://www.github.com/golota60",
+        className: "__link",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 43,
+          columnNumber: 25
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("span", {
+        className: "repobox__title githubfont",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 44,
+          columnNumber: 29
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_BookIconDefault.default, {
+        className: "repobox__icon",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 45,
+          columnNumber: 33
+        }
+      }), " ", reponame))), /*#__PURE__*/_reactDefault.default.createElement(_GithubMoreInfoDefault.default, {
+        className: `handle repobox__dragger ${isPressed ? 'grabbing' : ''}`,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 49,
+          columnNumber: 21
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "repobox__description githubfont",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 54,
+          columnNumber: 17
+        }
+      }, description), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "repobox__language githubfont",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 57,
+          columnNumber: 17
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_GithubLanguageIconDefault.default, {
+        color: currentColor,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 58,
+          columnNumber: 21
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("span", {
+        className: "repobox__language__text githubfont",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 59,
+          columnNumber: 21
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_TextLooperDefault.default, {
+        textArray: languages,
+        msTransitionTime: languageMsTransitionTime,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 60,
+          columnNumber: 25
+        }
+      })))))
+    );
+  };
+  _s(Repobox, "nJmg6SsA1Z+z0cvqAVx8DJGQAHM=");
+  _c = Repobox;
+  exports.default = Repobox;
+  var _c;
+  $RefreshReg$(_c, "Repobox");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

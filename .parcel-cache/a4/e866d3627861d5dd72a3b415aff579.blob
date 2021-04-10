@@ -1,0 +1,32 @@
+var helpers = require("../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require('react');
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  require('./TextLooper.scss');
+  var _helpersHelpers = require('../../helpers/helpers');
+  var _s = $RefreshSig$();
+  const ElementLooper = ({textArray, msTransitionTime}) => {
+    _s();
+    const [currentText, setCurrentText] = _react.useState(textArray[0]);
+    setTimeout(() => {
+      setCurrentText(_helpersHelpers.returnNextArrayItem(textArray, currentText));
+    }, msTransitionTime);
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement(_reactDefault.default.Fragment, null, currentText)
+    );
+  };
+  _s(ElementLooper, "vI91UvLjPwycTZ586a2MW9woKbQ=");
+  _c = ElementLooper;
+  exports.default = ElementLooper;
+  var _c;
+  $RefreshReg$(_c, "ElementLooper");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

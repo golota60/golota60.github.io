@@ -8,9 +8,6 @@ const App = () => {
   return (
     <>
       <Switch>
-        <Route exact path='/work'>
-          <WorkPage />
-        </Route>
         <Route exact path="/*">
           <RootPage />
         </Route>

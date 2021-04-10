@@ -6,6 +6,7 @@ interface TextWrapperProps {
   color?: 'black' | 'light-gray' | 'gray' | 'dark-gray' | 'white' | 'red';
   children: ReactNode;
   textType?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+  onClick?: () => void;
 }
 
 const TextWrapper = ({
@@ -13,6 +14,7 @@ const TextWrapper = ({
   color,
   children,
   textType,
+  onClick
 }: TextWrapperProps) => {
   function createFontSize() {
     let fontSize = '1.6rem';
@@ -54,6 +56,7 @@ const TextWrapper = ({
       <span
         className={createClassName()}
         style={{ fontSize: createFontSize() }}
+        onClick={onClick}
       >
         {children}
       </span>

@@ -1,0 +1,6 @@
+.githubMoreInfo {
+  fill: #586069;
+}
+.githubMoreInfo__wrapper {
+  margin: 0;
+}

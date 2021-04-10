@@ -1,74 +1,111 @@
-@import '../../variables.scss';
+@import "../../variables.scss";
 
-	.image {
-		&__coffee {
-			width: 30rem;
-      height: 30rem;
-      @media(max-width: $size-xs) {
-        width: 25rem;
-        height: 25rem;
-        margin-top: -2rem;
-      }
-		}
-		&__github {
-			width: 10rem;
-			height: 10rem;
-		}
-	}
+.image {
+  &__coffee {
+    width: 30rem;
+    height: 30rem;
+    @media (max-width: $size-xs) {
+      width: 25rem;
+      height: 25rem;
+    }
+  }
+  &__github {
+    width: 10rem;
+    height: 10rem;
+  }
+}
 
-	.information {
-    width: 100vw;
-    height: 100vh;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-    justify-content: center;
-    
-    &_repo {
-      @media(max-width: $size-xs) {
-        width: 28rem;
-        height: 8rem;
-        margin-top: -2rem;
-      }
+.information {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &_repo {
+    @media (max-width: $size-xs) {
+      width: 28rem;
+      height: 8rem;
+      margin-top: -2rem;
+    }
+  }
+
+  &__repoboxWrapper {
+    display: flex;
+  }
+
+  &__clickme {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    left: 30rem;
+    top: -11.5rem;
+
+    @media (max-width: $size-xs) {
+      display: none;
     }
 
-		&__repoboxWrapper {
-      display: flex;
-		}
+    &__arr {
+      width: 1.7rem;
+      padding-right: 0.5rem;
+    }
+  }
 
-		&__clickme {
-			font-size: 1.2rem;
-			line-height: 1.5;
-			display: flex;
-			align-items: flex-start;
-			position: relative;
-			left: 30rem;
-      top: -11.5rem;
-      
-      @media(max-width: $size-xs) {
-        display: none;
-      }
+  &__github {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-			&__arr {
-				width: 1.7rem;
-				padding-right: 0.5rem;
-			}
-		}
+  &__name {
+    margin-bottom: 0.5rem;
+  }
 
-		&__github {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
+  &__technologies {
+    width: 30rem;
+    margin-left: 7rem;
+    margin-bottom: 3rem;
+  }
 
-		&__name {
-			margin-bottom: 0.5rem;
-		}
+  &__notableWork {
+    cursor: pointer;
+    color: $github-blue;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
 
-		&__technologies {
+.workpage {
+  height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2rem;
+
+	&__yayfetch {
+		width: 40rem;
+		@media(max-width: $size-md) {
 			width: 30rem;
-			margin-left: 7rem;
-			margin-bottom: 3rem;
+		}
+		@media(max-width: $size-sm) {
+			width: 12rem;
 		}
 	}
+
+	&__blackbar {
+		background-color: #393939;
+		padding: 1rem;
+		margin: 1rem 0rem;
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+	}
+
+	&__yayfetchgif {
+	}
+}

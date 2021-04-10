@@ -1,0 +1,34 @@
+var helpers = require("../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _react = require('react');
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _reactDom = require('react-dom');
+  var _reactDomDefault = _parcelHelpers.interopDefault(_reactDom);
+  var _componentsApp = require('./components/App');
+  var _componentsAppDefault = _parcelHelpers.interopDefault(_componentsApp);
+  var _reactRouterDom = require('react-router-dom');
+  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/index.tsx";
+  _reactDomDefault.default.render(/*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.BrowserRouter, {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6,
+      columnNumber: 17
+    }
+  }, /*#__PURE__*/_reactDefault.default.createElement(_componentsAppDefault.default, {
+    __self: undefined,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6,
+      columnNumber: 32
+    }
+  })), document.getElementById('root'));
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

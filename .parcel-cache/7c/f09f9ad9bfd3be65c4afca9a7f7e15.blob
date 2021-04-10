@@ -1,0 +1,197 @@
+var helpers = require("../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require("react");
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  var _componentsGenericTextWrapper = require("../../components/generic/TextWrapper");
+  var _componentsGenericTextWrapperDefault = _parcelHelpers.interopDefault(_componentsGenericTextWrapper);
+  var _componentsGenericTextLooper = require("../../components/generic/TextLooper");
+  var _componentsGenericTextLooperDefault = _parcelHelpers.interopDefault(_componentsGenericTextLooper);
+  var _componentsGenericRepobox = require("../../components/generic/Repobox");
+  var _componentsGenericRepoboxDefault = _parcelHelpers.interopDefault(_componentsGenericRepobox);
+  var _urlAssetsCoffeeSvg = require("url:../../assets/coffee.svg");
+  var _urlAssetsCoffeeSvgDefault = _parcelHelpers.interopDefault(_urlAssetsCoffeeSvg);
+  var _urlAssetsGithubSvg = require("url:../../assets/github.svg");
+  var _urlAssetsGithubSvgDefault = _parcelHelpers.interopDefault(_urlAssetsGithubSvg);
+  var _urlAssetsArr_leftSvg = require("url:../../assets/arr_left.svg");
+  var _urlAssetsArr_leftSvgDefault = _parcelHelpers.interopDefault(_urlAssetsArr_leftSvg);
+  require("./RootPage.scss");
+  var _componentsYayfetchLogo = require("../../components/YayfetchLogo");
+  var _componentsYayfetchLogoDefault = _parcelHelpers.interopDefault(_componentsYayfetchLogo);
+  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/pages/RootPage/RootPage.tsx", _s = $RefreshSig$();
+  const technologies = ["Javascript", "Typescript", "React", "CSS", "SASS", "Node", "Express", "UI/UX"];
+  const RootPage = () => {
+    _s();
+    let workPageRef = _react.useRef(null);
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 25,
+          columnNumber: 5
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "information",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 26,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
+        className: "information__name",
+        textType: "h1",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 27,
+          columnNumber: 9
+        }
+      }, "I'm Szymon"), /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
+        textType: "h2",
+        className: "information__technologies",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 30,
+          columnNumber: 9
+        }
+      }, "And I really like ", /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextLooperDefault.default, {
+        msTransitionTime: 1500,
+        textArray: technologies,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32,
+          columnNumber: 11
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "information__github",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 37,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
+        textType: "h2",
+        color: "gray",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 38,
+          columnNumber: 11
+        }
+      }, "How much? See for yourself"), /*#__PURE__*/_reactDefault.default.createElement("a", {
+        href: "https://www.github.com/golota60",
+        target: "_blank",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 41,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        src: _urlAssetsGithubSvgDefault.default,
+        className: "image__github",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 42,
+          columnNumber: 13
+        }
+      }))), /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
+        className: "information__notableWork",
+        textType: "h3",
+        onClick: () => {
+          workPageRef.current && workPageRef.current.scrollIntoView({
+            behavior: "smooth"
+          });
+        },
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 45,
+          columnNumber: 9
+        }
+      }, "notable-work"), /*#__PURE__*/_reactDefault.default.createElement("img", {
+        src: _urlAssetsCoffeeSvgDefault.default,
+        className: "image__coffee",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 55,
+          columnNumber: 9
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "information__repoboxWrapper",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 56,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericRepoboxDefault.default, {
+        reponame: "szymon-wiszczuk",
+        description: "The best JS developer around",
+        languages: technologies,
+        languageMsTransitionTime: 1500,
+        className: "information_repo",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 57,
+          columnNumber: 11
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement("span", {
+        className: "information__clickme githubfont",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 65,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        className: "information__clickme__arr",
+        src: _urlAssetsArr_leftSvgDefault.default,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 66,
+          columnNumber: 11
+        }
+      }), "Try dragging me around!")), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "workpage",
+        ref: workPageRef,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 70,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsYayfetchLogoDefault.default, {
+        className: "workpage__yayfetch",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 71,
+          columnNumber: 9
+        }
+      })))
+    );
+  };
+  _s(RootPage, "z/iJvtZ1YicspGOC0i0MrJSr9Ys=");
+  _c = RootPage;
+  exports.default = RootPage;
+  var _c;
+  $RefreshReg$(_c, "RootPage");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

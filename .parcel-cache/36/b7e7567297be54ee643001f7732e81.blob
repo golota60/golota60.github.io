@@ -1,0 +1,68 @@
+var helpers = require("../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+helpers.prelude(module);
+try {
+  var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+  _parcelHelpers.defineInteropFlag(exports);
+  var _react = require('react');
+  var _reactDefault = _parcelHelpers.interopDefault(_react);
+  require('./TextWrapper.scss');
+  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/generic/TextWrapper.tsx";
+  const TextWrapper = ({className, color, children, textType, onClick}) => {
+    function createFontSize() {
+      let fontSize = '1.6rem';
+      switch (textType) {
+        case 'h1':
+          fontSize = '3.2rem';
+          break;
+        case 'h2':
+          fontSize = '2.4rem';
+          break;
+        case 'h3':
+          fontSize = '1.872rem';
+          break;
+        case 'h4':
+          fontSize = '1.6rem';
+          break;
+        case 'h5':
+          fontSize = '1.328rem';
+          break;
+        case 'h6':
+          fontSize = '1.072rem';
+          break;
+        default:
+          break;
+      }
+      return fontSize;
+    }
+    function createClassName() {
+      const newClassName = [];
+      className && newClassName.push(className);
+      color ? newClassName.push(color) : newClassName.push('dark-gray');
+      return newClassName.join(' ');
+    }
+    return (
+      /*#__PURE__*/_reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/_reactDefault.default.createElement("span", {
+        className: createClassName(),
+        style: {
+          fontSize: createFontSize()
+        },
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 56,
+          columnNumber: 7
+        }
+      }, children))
+    );
+  };
+  _c = TextWrapper;
+  exports.default = TextWrapper;
+  var _c;
+  $RefreshReg$(_c, "TextWrapper");
+  helpers.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}

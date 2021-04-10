@@ -1,0 +1,10 @@
+* {
+      font-size: 10px;
+      /*rem size*/
+      font-family: 'Tw Cen MT', sans-serif;
+    }
+
+    body {
+      overflow: hidden;
+      margin: 0;
+    }
