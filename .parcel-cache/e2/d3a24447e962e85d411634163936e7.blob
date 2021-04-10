@@ -1,9 +1,0 @@
-var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
-_parcelHelpers.defineInteropFlag(exports);
-_parcelHelpers.export(exports, "returnNextArrayItem", function () {
-  return returnNextArrayItem;
-});
-const returnNextArrayItem = (array, currentItem) => {
-  const itemIndex = array.indexOf(currentItem);
-  return array.indexOf(currentItem) === array.length - 1 ? array[0] : array[itemIndex + 1];
-};

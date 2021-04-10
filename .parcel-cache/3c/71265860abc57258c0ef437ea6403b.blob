@@ -1,1 +1,0 @@
-module.exports = require('./bundle-url').getBundleURL() + "sitegif.HASH_REF_9c2f8bc935bd1da11129f9f9d63b9a65.gif"
