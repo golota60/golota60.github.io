@@ -9,7 +9,8 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-draggable": "^4.4.3",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "smoothscroll-polyfill": "^0.4.4"
   },
   "scripts": {
     "start": "parcel src/index.html",
@@ -22,6 +23,7 @@
     "@parcel/transformer-typescript-tsc": "^2.0.0-alpha.3",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
+    "@types/smoothscroll-polyfill": "^0.3.1",
     "gh-pages": "^2.2.0",
     "parcel": "^2.0.0-beta.2",
     "sass": "^1.26.2",
