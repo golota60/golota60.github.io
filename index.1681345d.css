@@ -211,6 +211,7 @@
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  box-sizing: border-box;
 }
 .workpage__yayfetch {
   width: 40rem;
