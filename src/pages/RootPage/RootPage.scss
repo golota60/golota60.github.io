@@ -5,8 +5,8 @@
     width: 30rem;
     height: 30rem;
     @media (max-width: $size-xs) {
-      width: 25rem;
-      height: 25rem;
+      width: 20rem;
+      height: 20rem;
     }
   }
   &__github {
@@ -15,9 +15,32 @@
   }
 }
 
-.information {
+.termi-clicker-header {
+  font-size: 7rem !important;
+}
+
+.pageWrapper {
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-type: y proximity;
+  overflow-x: hidden;
+}
+
+.snapped-page {
+  scroll-snap-align: start;
+}
+
+.informationWrapper {
   width: 100vw;
   height: 100vh;
+}
+
+.information {
+  padding-top: 10rem;
+  @media (max-width: $size-md) {
+    padding-top: 5rem;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,31 +105,52 @@
 
 .workpage {
   height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
   box-sizing: border-box;
 
-	&__yayfetch {
-		width: 40rem;
-		@media(max-width: $size-md) {
-			width: 30rem;
-		}
-		@media(max-width: $size-sm) {
-			width: 12rem;
-		}
-	}
+  &__yayfetch {
+    width: 40rem;
+    @media (max-width: $size-md) {
+      width: 30rem;
+    }
+    @media (max-width: $size-sm) {
+      width: 12rem;
+    }
+  }
 
-	&__blackbar {
-		background-color: #393939;
-		padding: 1rem;
-		margin: 1rem 0rem;
-		width: 100vw;
-		display: flex;
-		justify-content: center;
-	}
+  &__blackbar {
+    background-color: #393939;
+    padding: 1rem;
+    margin: 1rem 0rem;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+  }
+  &__chevronContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 5rem;
+    align-items: center;
+    transition: margin-top 0.2s ease-in;
+    cursor: pointer;
+    &:hover {
+      margin-top: 0.5rem;
+    }
+  }
 
-	&__yayfetchgif {
-	}
+  &__chevron {
+    width: 3rem;
+    margin-top: 1rem;
+  }
+  &__chevronSmall {
+    width: 2rem;
+    margin-top: -1.5rem;
+  }
+
+  &__yayfetchgif {
+  }
 }
