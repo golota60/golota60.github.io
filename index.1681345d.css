@@ -138,8 +138,8 @@
 }
 @media (max-width: 441px) {
   .image__coffee {
-    width: 25rem;
-    height: 25rem;
+    width: 20rem;
+    height: 20rem;
   }
 }
 .image__github {
@@ -147,13 +147,38 @@
   height: 10rem;
 }
 
-.information {
+.termi-clicker-header {
+  font-size: 7rem !important;
+}
+
+.pageWrapper {
+  overflow-y: scroll;
+  height: 100vh;
+  width: 100vw;
+  scroll-snap-type: y proximity;
+  overflow-x: hidden;
+}
+
+.snapped-page {
+  scroll-snap-align: start;
+}
+
+.informationWrapper {
   width: 100vw;
   height: 100vh;
+}
+
+.information {
+  padding-top: 10rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 768px) {
+  .information {
+    padding-top: 5rem;
+  }
 }
 @media (max-width: 441px) {
   .information_repo {
@@ -233,5 +258,25 @@
   width: 100vw;
   display: flex;
   justify-content: center;
+}
+.workpage__chevronContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 5rem;
+  align-items: center;
+  transition: margin-top 0.2s ease-in;
+  cursor: pointer;
+}
+.workpage__chevronContainer:hover {
+  margin-top: 0.5rem;
+}
+.workpage__chevron {
+  width: 3rem;
+  margin-top: 1rem;
+}
+.workpage__chevronSmall {
+  width: 2rem;
+  margin-top: -1.5rem;
 }
 /*# sourceMappingURL=index.1681345d.css.map */

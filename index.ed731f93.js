@@ -1057,7 +1057,7 @@ try {
   var _reactRouterDom = require("react-router-dom");
   var _smoothscrollPolyfill = require("smoothscroll-polyfill");
   var _smoothscrollPolyfillDefault = _parcelHelpers.interopDefault(_smoothscrollPolyfill);
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/index.tsx";
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\index.tsx";
   _smoothscrollPolyfillDefault.default.polyfill();
   _reactDomDefault.default.render(/*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.BrowserRouter, {
     __self: undefined,
@@ -25248,7 +25248,7 @@ try {
   var _reactRouterDom = require('react-router-dom');
   var _pagesRootPageRootPage = require("../pages/RootPage/RootPage");
   var _pagesRootPageRootPageDefault = _parcelHelpers.interopDefault(_pagesRootPageRootPage);
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/App.tsx";
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\App.tsx";
   const App = () => {
     return (
       /*#__PURE__*/_reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/_reactDefault.default.createElement(_reactRouterDom.Switch, {
@@ -29300,33 +29300,47 @@ try {
   var _urlAssetsGithubSvgDefault = _parcelHelpers.interopDefault(_urlAssetsGithubSvg);
   var _urlAssetsArr_leftSvg = require("url:../../assets/arr_left.svg");
   var _urlAssetsArr_leftSvgDefault = _parcelHelpers.interopDefault(_urlAssetsArr_leftSvg);
+  var _urlAssetsChevronDownSvg = require("url:../../assets/chevron-down.svg");
+  var _urlAssetsChevronDownSvgDefault = _parcelHelpers.interopDefault(_urlAssetsChevronDownSvg);
   var _urlAssetsNpmlogoSvg = require("url:../../assets/npmlogo.svg");
   var _urlAssetsNpmlogoSvgDefault = _parcelHelpers.interopDefault(_urlAssetsNpmlogoSvg);
   var _urlAssetsSitegifGif = require("url:../../assets/sitegif.gif");
   var _urlAssetsSitegifGifDefault = _parcelHelpers.interopDefault(_urlAssetsSitegifGif);
+  var _urlAssetsTermiClickerLogoPng = require("url:../../assets/termi-clicker-logo.png");
+  var _urlAssetsTermiClickerLogoPngDefault = _parcelHelpers.interopDefault(_urlAssetsTermiClickerLogoPng);
   require("./RootPage.scss");
   var _componentsYayfetchLogo = require("../../components/YayfetchLogo");
   var _componentsYayfetchLogoDefault = _parcelHelpers.interopDefault(_componentsYayfetchLogo);
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/pages/RootPage/RootPage.tsx", _s = $RefreshSig$();
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\pages\\RootPage\\RootPage.tsx", _s = $RefreshSig$();
   const technologies = ["Javascript", "Typescript", "React", "CSS", "SASS", "Node", "Express", "UI/UX"];
   const RootPage = () => {
     _s();
-    let workPageRef = _react.useRef(null);
+    let yayfetchPageRef = _react.useRef(null);
+    let termiClickerPageRef = _react.useRef(null);
     return (
       /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "pageWrapper",
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27,
+          lineNumber: 30,
           columnNumber: 5
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("div", {
-        className: "information",
+        className: "informationWrapper",
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28,
+          lineNumber: 31,
           columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "information snapped-page",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 32,
+          columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
         className: "information__name",
@@ -29334,8 +29348,8 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 29,
-          columnNumber: 9
+          lineNumber: 33,
+          columnNumber: 11
         }
       }, "I'm Szymon"), /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
         textType: "h2",
@@ -29343,8 +29357,8 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32,
-          columnNumber: 9
+          lineNumber: 36,
+          columnNumber: 11
         }
       }, "And I really like ", /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextLooperDefault.default, {
         msTransitionTime: 1500,
@@ -29352,16 +29366,16 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 34,
-          columnNumber: 11
+          lineNumber: 38,
+          columnNumber: 13
         }
       })), /*#__PURE__*/_reactDefault.default.createElement("div", {
         className: "information__github",
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 39,
-          columnNumber: 9
+          lineNumber: 43,
+          columnNumber: 11
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
         textType: "h2",
@@ -29369,8 +29383,8 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 40,
-          columnNumber: 11
+          lineNumber: 44,
+          columnNumber: 13
         }
       }, "How much? See for yourself"), /*#__PURE__*/_reactDefault.default.createElement("a", {
         href: "https://www.github.com/golota60",
@@ -29378,8 +29392,8 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 43,
-          columnNumber: 11
+          lineNumber: 47,
+          columnNumber: 13
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("img", {
         src: _urlAssetsGithubSvgDefault.default,
@@ -29387,29 +29401,29 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 44,
-          columnNumber: 13
+          lineNumber: 48,
+          columnNumber: 15
         }
       }))), /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
         className: "information__notableWork",
         textType: "h3",
         onClick: () => {
-          workPageRef.current && workPageRef.current.scrollIntoView({
+          yayfetchPageRef.current && yayfetchPageRef.current.scrollIntoView({
             behavior: "smooth"
           });
         },
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 47,
-          columnNumber: 9
+          lineNumber: 51,
+          columnNumber: 11
         }
       }, "fun-stuff i wrote"), /*#__PURE__*/_reactDefault.default.createElement("div", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 57,
-          columnNumber: 9
+          lineNumber: 61,
+          columnNumber: 11
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("img", {
         src: _urlAssetsCoffeeSvgDefault.default,
@@ -29417,16 +29431,16 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 58,
-          columnNumber: 11
+          lineNumber: 62,
+          columnNumber: 13
         }
       })), /*#__PURE__*/_reactDefault.default.createElement("div", {
         className: "information__repoboxWrapper",
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 60,
-          columnNumber: 9
+          lineNumber: 64,
+          columnNumber: 11
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericRepoboxDefault.default, {
         reponame: "szymon-wiszczuk",
@@ -29437,16 +29451,16 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 61,
-          columnNumber: 11
+          lineNumber: 65,
+          columnNumber: 13
         }
       })), /*#__PURE__*/_reactDefault.default.createElement("span", {
         className: "information__clickme githubfont",
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 69,
-          columnNumber: 9
+          lineNumber: 73,
+          columnNumber: 11
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("img", {
         className: "information__clickme__arr",
@@ -29454,16 +29468,47 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 70,
-          columnNumber: 11
+          lineNumber: 74,
+          columnNumber: 13
         }
-      }), "Try dragging me around!")), /*#__PURE__*/_reactDefault.default.createElement("div", {
-        className: "workpage",
-        ref: workPageRef,
+      }), "Try dragging me around!")), " ", /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "workpage__chevronContainer",
+        onClick: () => {
+          yayfetchPageRef.current && yayfetchPageRef.current.scrollIntoView({
+            behavior: "smooth"
+          });
+        },
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 74,
+          lineNumber: 78,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        className: "workpage__chevron",
+        src: _urlAssetsChevronDownSvgDefault.default,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 87,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("img", {
+        className: "workpage__chevronSmall",
+        src: _urlAssetsChevronDownSvgDefault.default,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 88,
+          columnNumber: 11
+        }
+      }), "See more")), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "workpage snapped-page",
+        ref: yayfetchPageRef,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 92,
           columnNumber: 7
         }
       }, /*#__PURE__*/_reactDefault.default.createElement(_componentsYayfetchLogoDefault.default, {
@@ -29471,7 +29516,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 75,
+          lineNumber: 93,
           columnNumber: 9
         }
       }), /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
@@ -29479,14 +29524,14 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 76,
+          lineNumber: 94,
           columnNumber: 9
         }
       }, "Multi-platform node.js screenfetch tool"), /*#__PURE__*/_reactDefault.default.createElement("div", {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 79,
+          lineNumber: 97,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("a", {
@@ -29495,7 +29540,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 80,
+          lineNumber: 98,
           columnNumber: 11
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("img", {
@@ -29504,7 +29549,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 81,
+          lineNumber: 99,
           columnNumber: 13
         }
       })), /*#__PURE__*/_reactDefault.default.createElement("a", {
@@ -29513,7 +29558,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 83,
+          lineNumber: 101,
           columnNumber: 11
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("img", {
@@ -29522,7 +29567,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 84,
+          lineNumber: 102,
           columnNumber: 13
         }
       }))), /*#__PURE__*/_reactDefault.default.createElement("div", {
@@ -29530,7 +29575,7 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 87,
+          lineNumber: 105,
           columnNumber: 9
         }
       }, /*#__PURE__*/_reactDefault.default.createElement("img", {
@@ -29539,13 +29584,129 @@ try {
         __self: undefined,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 88,
+          lineNumber: 106,
+          columnNumber: 11
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "workpage__chevronContainer",
+        onClick: () => {
+          termiClickerPageRef.current && termiClickerPageRef.current.scrollIntoView({
+            behavior: "smooth"
+          });
+        },
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 108,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        className: "workpage__chevron",
+        src: _urlAssetsChevronDownSvgDefault.default,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 117,
+          columnNumber: 11
+        }
+      }), /*#__PURE__*/_reactDefault.default.createElement("img", {
+        className: "workpage__chevronSmall",
+        src: _urlAssetsChevronDownSvgDefault.default,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 118,
+          columnNumber: 11
+        }
+      }), "See more")), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "workpage snapped-page",
+        ref: termiClickerPageRef,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 122,
+          columnNumber: 7
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
+        className: "termi-clicker-header",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 123,
+          columnNumber: 9
+        }
+      }, "termi-clicker"), /*#__PURE__*/_reactDefault.default.createElement(_componentsGenericTextWrapperDefault.default, {
+        textType: "h4",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 126,
+          columnNumber: 9
+        }
+      }, "🤖 A programming-themed based-in-terminal clicker game!"), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 129,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("a", {
+        href: "https://www.github.com/golota60/termi-clicker",
+        target: "_blank",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 130,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        src: _urlAssetsGithubSvgDefault.default,
+        className: "image__github",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 134,
+          columnNumber: 13
+        }
+      })), /*#__PURE__*/_reactDefault.default.createElement("a", {
+        href: "https://www.npmjs.com/package/termi-clicker",
+        target: "_blank",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 136,
+          columnNumber: 11
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        src: _urlAssetsNpmlogoSvgDefault.default,
+        className: "image__github",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 137,
+          columnNumber: 13
+        }
+      }))), /*#__PURE__*/_reactDefault.default.createElement("div", {
+        className: "workpage__blackbar",
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 140,
+          columnNumber: 9
+        }
+      }, /*#__PURE__*/_reactDefault.default.createElement("img", {
+        className: "workpage__termigif",
+        src: _urlAssetsTermiClickerLogoPngDefault.default,
+        __self: undefined,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 141,
           columnNumber: 11
         }
       }))))
     );
   };
-  _s(RootPage, "z/iJvtZ1YicspGOC0i0MrJSr9Ys=");
+  _s(RootPage, "KDpUcuhsi8tZ/Y/Yn2JzVPF4JAY=");
   _c = RootPage;
   exports.default = RootPage;
   var _c;
@@ -29556,7 +29717,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","../../components/generic/TextWrapper":"bRjYr","../../components/generic/TextLooper":"3e0Ly","../../components/generic/Repobox":"3K2VA","url:../../assets/coffee.svg":"1CPye","url:../../assets/github.svg":"5Z9Q5","url:../../assets/arr_left.svg":"1QzsK","url:../../assets/npmlogo.svg":"88enz","./RootPage.scss":"1J8OR","../../components/YayfetchLogo":"2jYWL","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f","url:../../assets/sitegif.gif":"7fFWs"}],"bRjYr":[function(require,module,exports) {
+},{"react":"3b2NM","../../components/generic/TextWrapper":"bRjYr","../../components/generic/TextLooper":"3e0Ly","../../components/generic/Repobox":"3K2VA","url:../../assets/coffee.svg":"1CPye","url:../../assets/github.svg":"5Z9Q5","url:../../assets/arr_left.svg":"1QzsK","url:../../assets/chevron-down.svg":"37N83","url:../../assets/npmlogo.svg":"88enz","url:../../assets/sitegif.gif":"7fFWs","url:../../assets/termi-clicker-logo.png":"q7Rmy","./RootPage.scss":"1J8OR","../../components/YayfetchLogo":"2jYWL","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"bRjYr":[function(require,module,exports) {
 var helpers = require("../../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -29564,31 +29725,31 @@ helpers.prelude(module);
 try {
   var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
   _parcelHelpers.defineInteropFlag(exports);
-  var _react = require('react');
+  var _react = require("react");
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  require('./TextWrapper.scss');
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/generic/TextWrapper.tsx";
+  require("./TextWrapper.scss");
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\generic\\TextWrapper.tsx";
   const TextWrapper = ({className, color, children, textType, onClick}) => {
     function createFontSize() {
-      let fontSize = '1.6rem';
+      let fontSize = "1.6rem";
       switch (textType) {
-        case 'h1':
-          fontSize = '3.2rem';
+        case "h1":
+          fontSize = "3.2rem";
           break;
-        case 'h2':
-          fontSize = '2.4rem';
+        case "h2":
+          fontSize = "2.4rem";
           break;
-        case 'h3':
-          fontSize = '1.872rem';
+        case "h3":
+          fontSize = "1.872rem";
           break;
-        case 'h4':
-          fontSize = '1.6rem';
+        case "h4":
+          fontSize = "1.6rem";
           break;
-        case 'h5':
-          fontSize = '1.328rem';
+        case "h5":
+          fontSize = "1.328rem";
           break;
-        case 'h6':
-          fontSize = '1.072rem';
+        case "h6":
+          fontSize = "1.072rem";
           break;
         default:
           break;
@@ -29598,8 +29759,8 @@ try {
     function createClassName() {
       const newClassName = [];
       className && newClassName.push(className);
-      color ? newClassName.push(color) : newClassName.push('dark-gray');
-      return newClassName.join(' ');
+      color ? newClassName.push(color) : newClassName.push("dark-gray");
+      return newClassName.join(" ");
     }
     return (
       /*#__PURE__*/_reactDefault.default.createElement(_reactDefault.default.Fragment, null, /*#__PURE__*/_reactDefault.default.createElement("span", {
@@ -29893,7 +30054,7 @@ try {
   var _TextLooper = require('./TextLooper');
   var _TextLooperDefault = _parcelHelpers.interopDefault(_TextLooper);
   var _helpersHelpers = require('../../helpers/helpers');
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/generic/Repobox.tsx", _s = $RefreshSig$();
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\generic\\Repobox.tsx", _s = $RefreshSig$();
   const Repobox = ({reponame, description, languages, languageMsTransitionTime, className = ''}) => {
     _s();
     const [isPressed, setPressed] = _react.useState(false);
@@ -30018,7 +30179,7 @@ try {
       })))))
     );
   };
-  _s(Repobox, "nJmg6SsA1Z+z0cvqAVx8DJGQAHM=");
+  _s(Repobox, "bpwZ0iNZOP1VlvLVmzZa/DtFGyI=");
   _c = Repobox;
   exports.default = Repobox;
   var _c;
@@ -31816,7 +31977,7 @@ try {
   _parcelHelpers.defineInteropFlag(exports);
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/BookIcon.tsx";
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\BookIcon.tsx";
   const BookIcon = ({className}) => {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -31865,7 +32026,7 @@ try {
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   require('./GithubLanguageIcon.scss');
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/generic/GithubLanguageIcon.tsx";
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\generic\\GithubLanguageIcon.tsx";
   const GithubLanguageIcon = ({color = 'Javascript'}) => {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("span", {
@@ -31900,7 +32061,7 @@ try {
   var _react = require('react');
   var _reactDefault = _parcelHelpers.interopDefault(_react);
   require('./GithubMoreInfo.scss');
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/generic/GithubMoreInfo.tsx";
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\generic\\GithubMoreInfo.tsx";
   const GithubMoreInfo = ({className, onMouseDown = () => {}}) => {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("p", {
@@ -31999,8 +32160,14 @@ exports.getOrigin = getOrigin;
 module.exports = require('./bundle-url').getBundleURL() + "github.f497324d.svg"
 },{"./bundle-url":"3seVR"}],"1QzsK":[function(require,module,exports) {
 module.exports = require('./bundle-url').getBundleURL() + "arr_left.1352ec5f.svg"
+},{"./bundle-url":"3seVR"}],"37N83":[function(require,module,exports) {
+module.exports = require('./bundle-url').getBundleURL() + "chevron-down.fd908af1.svg"
 },{"./bundle-url":"3seVR"}],"88enz":[function(require,module,exports) {
 module.exports = require('./bundle-url').getBundleURL() + "npmlogo.a8c0677a.svg"
+},{"./bundle-url":"3seVR"}],"7fFWs":[function(require,module,exports) {
+module.exports = require('./bundle-url').getBundleURL() + "sitegif.d63b9a65.gif"
+},{"./bundle-url":"3seVR"}],"q7Rmy":[function(require,module,exports) {
+module.exports = require('./bundle-url').getBundleURL() + "termi-clicker-logo.272f1dd3.png"
 },{"./bundle-url":"3seVR"}],"1J8OR":[function() {},{}],"2jYWL":[function(require,module,exports) {
 var helpers = require("../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
@@ -32011,7 +32178,7 @@ try {
   _parcelHelpers.defineInteropFlag(exports);
   var _react = require("react");
   var _reactDefault = _parcelHelpers.interopDefault(_react);
-  var _jsxFileName = "/Users/szymonwiszczuk/golota60.github.io/src/components/YayfetchLogo.tsx";
+  var _jsxFileName = "C:\\Users\\Szymon\\Desktop\\golota60.github.io\\src\\components\\YayfetchLogo.tsx";
   const YayfetchLogo = ({className = ""}) => {
     return (
       /*#__PURE__*/_reactDefault.default.createElement("svg", {
@@ -32174,9 +32341,7 @@ try {
   window.$RefreshSig$ = prevRefreshSig;
 }
 
-},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"7fFWs":[function(require,module,exports) {
-module.exports = require('./bundle-url').getBundleURL() + "sitegif.d63b9a65.gif"
-},{"./bundle-url":"3seVR"}],"836QV":[function(require,module,exports) {
+},{"react":"3b2NM","@parcel/transformer-js/lib/esmodule-helpers.js":"5gA8y","../../node_modules/@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"4Jj4f"}],"836QV":[function(require,module,exports) {
 /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
 (function () {
   'use strict';
