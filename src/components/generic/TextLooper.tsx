@@ -1,5 +1,4 @@
 import React, { useState, useEffect, ReactElement } from 'react';
-import './TextLooper.scss';
 import { returnNextArrayItem } from '../../helpers/helpers';
 
 interface ElementLooperInterface {
@@ -7,18 +6,14 @@ interface ElementLooperInterface {
   msTransitionTime: number;
 }
 
-const ElementLooper = ({textArray, msTransitionTime}: ElementLooperInterface) => {
+const ElementLooper = ({ textArray, msTransitionTime }: ElementLooperInterface) => {
   const [currentText, setCurrentText] = useState(textArray[0]);
 
-    setTimeout(() => {
-      setCurrentText(returnNextArrayItem(textArray, currentText));
-    }, msTransitionTime);
+  setTimeout(() => {
+    setCurrentText(returnNextArrayItem(textArray, currentText));
+  }, msTransitionTime);
 
-  return (
-    <>
-      {currentText}
-    </>
-  );
+  return <>{currentText}</>;
 }
 
 export default ElementLooper;

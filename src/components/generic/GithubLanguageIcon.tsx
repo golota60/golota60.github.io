@@ -1,15 +1,15 @@
 import React from 'react';
-import './GithubLanguageIcon.scss';
 
 interface GithubLanguageIconProps {
-    color?: 'Javascript' | 'Typescript' | 'React' | 'CSS' | 'SASS' | 'Node' | 'Express' | 'UI/UX'
+    color?: 'Javascript' | 'Typescript' | 'React' | 'CSS' | 'SASS' | 'Node' | 'Express' | 'UI/UX';
 }
 
 const GithubLanguageIcon = ({
     color = 'Javascript'
-} : GithubLanguageIconProps) => {
+}: GithubLanguageIconProps) => {
+    // this showed the little circle with the color
     return (
-        <span className={`languageIcon languageIcon__${color}`}></span>
+        <span></span>
     );
 }
 

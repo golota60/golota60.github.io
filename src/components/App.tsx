@@ -1,18 +1,19 @@
 import React from "react";
-import "./App.scss";
-import { Route, Switch } from 'react-router-dom';
 import RootPage from "../pages/RootPage/RootPage";
-import WorkPage from "../pages/WorkPage/WorkPage";
+import { createBrowserRouter, Link } from "found";
+
+const routeConfig = [
+  {
+    path: "/",
+    Component: () => <RootPage />
+  },
+];
+
+const BrowserRouter = createBrowserRouter({ routeConfig });
 
 const App = () => {
   return (
-    <>
-      <Switch>
-        <Route exact path="/*">
-          <RootPage />
-        </Route>
-      </Switch>
-    </>
+    <BrowserRouter />
   );
 };
 export default App;

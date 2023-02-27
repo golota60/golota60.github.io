@@ -1,39 +1,38 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import './Repobox.scss';
+import './Repobox.css';
 import BookIcon from '../BookIcon';
 import GithubLanguageIcon from './GithubLanguageIcon';
 import GithubMoreInfo from './GithubMoreInfo';
 import ElementLooper from './TextLooper';
 import { returnNextArrayItem } from '../../helpers/helpers';
+import clsx from 'clsx';
 
 interface RepoboxProps {
-    reponame : string;
-    description
-        ?
-        : string;
-    languages : Array < string >;
-    languageMsTransitionTime : number;
+    reponame: string;
+    description?: string;
+    languages: Array<string>;
+    languageMsTransitionTime: number;
     className?: string
 }
 
-const Repobox = ({reponame, description, languages, languageMsTransitionTime, className = ''} : RepoboxProps) => {
+const Repobox = ({ reponame, description, languages, languageMsTransitionTime, className = '' }: RepoboxProps) => {
     const [isPressed,
         setPressed] = useState(false);
 
     const [currentColor, setCurrentColor] = useState(languages[0]);
-      setTimeout(() => {
+    setTimeout(() => {
         setCurrentColor(returnNextArrayItem(languages, currentColor));
-      }, 1500);
+    }, 1500);
 
     return (
         <Draggable
             handle=".handle"
             defaultPosition={{
-            x: 0,
-            y: 0
-        }}
-            position={null}
+                x: 0,
+                y: 0
+            }}
+            position={undefined}
             scale={1}
             onStart={() => setPressed(true)}
             onStop={() => setPressed(false)}>
@@ -42,24 +41,22 @@ const Repobox = ({reponame, description, languages, languageMsTransitionTime, cl
                     <span>
                         <a href="https://www.github.com/golota60" className="__link">
                             <span className="repobox__title githubfont">
-                                <BookIcon className="repobox__icon"/> {reponame}
+                                <BookIcon className="repobox__icon" /> {reponame}
                             </span>
                         </a>
                     </span>
                     <GithubMoreInfo
-                        className={`handle repobox__dragger ${isPressed
-                        ? 'grabbing'
-                        : ''}`}/>
+                        className={clsx(isPressed && 'grabbing')} />
                 </span>
                 <div className="repobox__description githubfont">
                     {description}
                 </div>
                 <div className="repobox__language githubfont">
-                    <GithubLanguageIcon color={currentColor}/>
+                    <GithubLanguageIcon color={currentColor as any} />
                     <span className="repobox__language__text githubfont">
                         <ElementLooper
                             textArray={languages}
-                            msTransitionTime={languageMsTransitionTime}/>
+                            msTransitionTime={languageMsTransitionTime} />
                     </span>
                 </div>
             </div>

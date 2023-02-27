@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import "./TextWrapper.scss";
 
 interface TextWrapperProps {
   className?: string;

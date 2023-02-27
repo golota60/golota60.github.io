@@ -1,25 +1,17 @@
+import clsx from 'clsx';
 import React from 'react';
-import './GithubMoreInfo.scss';
 
 interface GithubMoreInfoProps {
-    onClick
-        ? ()
-        : void;
+    onClick?: () => void;
     className?: string;
-    onMouseDown
-        ? (e:  any)
-        : void;
+    onMouseDown?: (e: any) => void;
 }
 
-const GithubMoreInfo = ({className, onMouseDown = () => {}} : GithubMoreInfoProps) => {
+const GithubMoreInfo = ({ className, onMouseDown = () => { } }: GithubMoreInfoProps) => {
     return (
         <p
-            onMouseDown={onMouseDown}
-            className={`githubMoreInfo__wrapper ${className
-            ? className
-            : ''}`}>
+            onMouseDown={onMouseDown} className={clsx(className)}>
             <svg
-                className="githubMoreInfo"
                 viewBox="0 0 16 16"
                 version="1.1"
                 width="16"

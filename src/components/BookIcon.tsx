@@ -1,15 +1,14 @@
+import clsx from 'clsx';
 import React from 'react';
 
 interface BookIconProps {
-    className? : string;
+    className?: string;
 }
 
-const BookIcon = ({className} : BookIconProps) => {
+const BookIcon = ({ className }: BookIconProps) => {
     return (
         <svg
-            className={className
-            ? className
-            : ''}
+            className={clsx(className)}
             viewBox="0 0 16 16"
             version="1.1"
             width="16"

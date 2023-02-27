@@ -1,13 +1,14 @@
+import clsx from "clsx";
 import React from "react";
 
 interface Props {
   className?: string;
 }
 
-const YayfetchLogo = ({ className = "" }: Props) => {
+const YayfetchLogo = ({ className }: Props) => {
   return (
     <svg
-      className={className}
+      className={clsx(className)}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 58 14"
     >
