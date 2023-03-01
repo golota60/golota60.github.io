@@ -30,7 +30,7 @@ export const projects: Array<Project> = [
   },
   {
     title: "and...",
-    description: "a lot of small, less showable tinkering projects",
+    description: "a lot of small, less shiny tinkering projects",
     logo: <img src="/plus.svg" className="w-10" />,
     githubLink: "https://github.com/golota60",
   },

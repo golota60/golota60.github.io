@@ -11,7 +11,9 @@ const Introduction = ({ className }: Props) => {
       <p className="text-md mt-1 text-gray">
         Typescript and Rust enthusiast and hobbyist tinkerer
       </p>
-      <img className="w-16" src="/github.svg" />
+      <a href="https://github.com/golota60">
+        <img className="w-16" src="/github.svg" alt="github logo" />
+      </a>
     </div>
   );
 };

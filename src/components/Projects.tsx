@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { Link } from "found";
 import ProjectPreview from "./ProjectPreview";
 import { projects } from "./projectsData";
 
