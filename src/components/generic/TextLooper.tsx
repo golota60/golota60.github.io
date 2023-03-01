@@ -1,12 +1,15 @@
-import React, { useState, useEffect, ReactElement } from 'react';
-import { returnNextArrayItem } from '../../helpers/helpers';
+import { useState } from "react";
+import { returnNextArrayItem } from "../../helpers/helpers";
 
 interface ElementLooperInterface {
   textArray: Array<string>;
   msTransitionTime: number;
 }
 
-const ElementLooper = ({ textArray, msTransitionTime }: ElementLooperInterface) => {
+const ElementLooper = ({
+  textArray,
+  msTransitionTime,
+}: ElementLooperInterface) => {
   const [currentText, setCurrentText] = useState(textArray[0]);
 
   setTimeout(() => {
@@ -14,6 +17,6 @@ const ElementLooper = ({ textArray, msTransitionTime }: ElementLooperInterface) 
   }, msTransitionTime);
 
   return <>{currentText}</>;
-}
+};
 
 export default ElementLooper;
