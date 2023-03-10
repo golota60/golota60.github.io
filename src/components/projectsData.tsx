@@ -22,10 +22,10 @@ export const projects: Array<Project> = [
     language: "Typescript",
   },
   {
-    title: "idasen-tray-controller",
+    title: "trayasen",
     description: "Idasen desk controller",
     logo: <img src="/carrot.png" className="w-10" />,
-    githubLink: "https://github.com/golota60/idasen-tray-controller",
+    githubLink: "https://github.com/golota60/trayasen",
     language: "Rust",
   },
   {
