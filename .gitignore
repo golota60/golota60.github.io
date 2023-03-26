@@ -4,3 +4,5 @@ yarn-error.log
 dist
 build
 .parcel-cache/
+target
+pkg

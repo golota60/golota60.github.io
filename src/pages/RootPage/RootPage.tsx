@@ -1,6 +1,7 @@
 // import Blogposts from "../../components/Blogposts";
 import Introduction from "../../components/Introduction";
 import Projects from "../../components/Projects";
+import { greet } from "../../wasm/wasm_visual";
 
 const RootPage = () => {
   return (
@@ -15,6 +16,7 @@ const RootPage = () => {
       {/* Enable once I've actually created any blogposts and move to grid 2/1 layout*/}
       {/* <Blogposts /> */}
       <Projects className="flex flex-col items-center" />
+      <button onClick={greet}>greet from wasm</button>
     </div>
   );
 };

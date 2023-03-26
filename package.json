@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "yarn rust:release && tsc && vite build",
+    "rust:dev": "cd wasm && wasm-pack build --dev -d ../src/wasm",
+    "rust:release": "cd wasm && wasm-pack build --release -d ../src/wasm",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "preview": "vite preview"
@@ -29,6 +31,7 @@
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.9.3",
-    "vite": "^4.1.0"
+    "vite": "^4.1.0",
+    "vite-plugin-wasm": "^3.2.2"
   }
 }
