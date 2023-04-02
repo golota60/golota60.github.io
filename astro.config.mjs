@@ -8,7 +8,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://golota60.github.io",
   integrations: [mdx(), sitemap(), solidJs(), tailwind()],
   vite: {
     plugins: [wasm()],
