@@ -1,0 +1,261 @@
+---
+title: "WASM snippets inside JS"
+description: "WASM snippets inside JS"
+pubDate: "April 02 2023"
+heroImage: "/sun_tzu_wasm.png"
+---
+
+I believe WebAssembly (WASM) has really been a widely misunderstood technology.
+When it was first introduced, some people predicted that Javascript is going to die very soon,
+and few years later you could hear the exact opposite - that WASM doesn't change anything and it will have no impact on current Javascript ecosystem.
+If you don't know [what WASM is](https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts) - the quick unprecise TLDR is that it's a way to execute languages other than Javascript in the browser (or in node) via [WAT](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format).
+
+[WebAssembly use cases](https://webassembly.org/docs/use-cases/) make it clear that it doesn't want to replace Javascript, it just wants
+to empower developers to have an interface to execute code that's different than Javascript with all it's benefits and library ecosystems.
+
+So that's it, right? Unless I want to do some very specific magic I shouldn't care about this?
+
+I wanted to put that to the test. As a guy who likes both Rust and JS, I think WASM is the only bridge between both of these worlds, and want to know whether looking more into it is worth my while.
+And if it is, how can I benefit from it?
+
+There's a lot of very insightful benchmarks, starting with [this awesome study of WASM runtimes](https://00f.net/2023/01/04/webassembly-benchmark-2023), [this awesome study comparing JS and WASM for different algorithms](https://weihang-wang.github.io/papers/imc21.pdf)
+and ending with [Leptos creator talk about WASM frameworks](https://www.youtube.com/watch?v=4KtotxNAwME) (not to mention HTTP 203 podcast, which also described WASM usages in [squoosh](https://squoosh.app/)).
+
+But I just want to answer few simple questions - if I'm a web developer:
+
+- Should I care about WASM?
+- Should I introduce it in my codebase? If yes, how?
+- What are the possible gains? Where those would even be?
+
+## The setup
+
+First, I think it's pretty common knowledge that [V8](https://v8.dev/) and [JavascriptCore](https://www.cyberark.com/resources/threat-research-blog/the-mysterious-realm-of-javascriptcore) can be pretty performant if the task is repetitive,
+because JIT will do some great optimizations
+and our potential gains will be severely diminished.
+
+Second, the cost of "crossing the bridge" between WASM and Javascript. There's a hidden cost in calling WASM - it's related to browser implementations and the fact that JS encodes strings with UTF-16 while other
+programming language (including Rust) most commonly encode strings in UTF-8, so there's a translation layer making string copying between WASM and JS quite costly.
+
+Third, I'm not going to be talking about WASM/JS frameworks and their performance. There's plenty of benchmarks that frameworks authors do.
+I'm going to be exploring the idea of calling WASM snippets inside Javascript and whether there's a performance benefit in doing that.
+If you're interested about frameworks, please watch the Leptos creator talk about WASM frameworks - it's really good and he dives deeper into this topic.
+
+## Crossing the WASM bridge
+
+Let's try to naively compute some prime numbers using Rust (compiled to WASM) and Javascript. We're gonna use two algorithms
+
+- Unoptimized brute force
+- A heavily optimized [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) algorithm [(gist)](https://gist.github.com/glebm/440bbe2fc95e7abee40eb260ec82f85c).
+
+import Spoiler from "../../solid/Spoiler.tsx";
+import CodeSnippet from "../../solid/CodeSnippet.tsx";
+import BarChart from "../../solid/BarChart.tsx";
+// eslint-ignore
+
+<CodeSnippet
+  client:load
+  title="Brute force JS"
+  lang="js"
+  code={`export const jsBruteUnoptimized = (upperBound: number) => {
+  let primesAccumulator = [];
+  
+  for (let currNum = 1; currNum < upperBound; currNum++) {
+    let divisibleNums = [];
+
+    for (let j = 1; j < currNum; j++) {
+      if (currNum % j === 0) {
+        divisibleNums.push(true);
+      }
+    }
+
+    if (divisibleNums.length === 1) {
+      primesAccumulator.push(currNum);
+    }
+
+}
+
+};`}
+/>
+
+<CodeSnippet
+  client:load
+  title="Brute force Rust (WASM)"
+  lang="rust"
+  code={`pub fn primes_naive_slow(bound: usize) -> Vec<usize> {
+    let mut primes_accumulator: Vec<usize> = Vec::new();
+    for curr_num in 1..bound {
+        let mut divisible_nums: Vec<bool> = Vec::new();
+        for diviser in 1..curr_num {
+            if curr_num % diviser == 0 {
+                divisible_nums.push(true);
+            }
+        }
+
+        if divisible_nums.len() == 1 {
+            primes_accumulator.push(curr_num);
+        }
+    }
+    primes_accumulator
+
+}`}
+/>
+
+<CodeSnippet
+  client:load
+  title="Optimized sieve JS"
+  lang="js"
+  code={`export const jsPrimeSieve = (upperBound: number) => {
+  let primes = [];
+  for (let i = 0; i < upperBound + 1; i++) {
+    if (i === 2 || (i & 1) !== 0) {
+      primes.push(true);
+      continue;
+    }
+    primes.push(false);
+  }
+  let num = 3;
+  while (num * num <= upperBound) {
+    let j = num * num;
+    while (j <= upperBound) {
+      primes[j] = false;
+      j += num;
+    }
+    num += 2;
+  }
+  primes.shift();
+  primes = primes
+    .map((e, i) => {
+      if (e) {
+        return i;
+      } else {
+        return;
+      }
+    })
+    .filter((e) => e);
+};`}
+/>
+
+<CodeSnippet
+  client:load
+  title="Optimized sieve Rust (WASM)"
+  lang="rust"
+  code={`pub fn primes_sieve(bound: usize) -> Vec<usize> {
+    let mut primes: Vec<bool> = 
+      (0..bound + 1).map(|num| num == 2 || num & 1 != 0).collect();
+    let mut num = 3usize;
+    while num * num <= bound {
+        let mut j = num * num;
+        while j <= bound {
+            primes[j] = false;
+            j += num;
+        }
+        num += 2;
+    }
+    primes
+        .into_iter()
+        .enumerate()
+        .skip(2)
+        .filter_map(|(i, p)| if p { Some(i) } else { None })
+        .collect::<Vec<usize>>()
+}`}
+/>
+
+### One big calculation
+
+Let's make a big calculation - finding prime numbers up to 10 000 000 for a sieve, and up to 20 000 for brute force.
+
+import BigPrimes from "../../solid/BigPrimes.tsx";
+
+<BigPrimes
+  bruteUpperBound={20000}
+  sieveUpperBound={10000000}
+  bruteTimes={1}
+  sieveTimes={1}
+  client:visible
+/>
+{/* Hypothesis: One costly operation is worth is to be ported to rust, many small ones are not. */}
+
+### A lot of small calculations
+
+Now let's use the exact same algorithms, but for much smaller numbers executes way more times
+
+- for bruteforce
+  - prime numbers up to 100, 10 000x times
+- for optimized sieve
+  - prime numbers up to 100, 100 000x times
+
+<BigPrimes
+  bruteUpperBound={100}
+  sieveUpperBound={100}
+  bruteTimes={10000}
+  sieveTimes={100000}
+  client:visible
+/>
+
+When you look at those brief results, you'll see that the JS results are a little bit all over the place.
+But **not for webassembly**.
+It's incredibly consistent.
+JS might have a good or a bad day, while webassembly times stay roughly the same.
+
+Another thing you should notice is that WASM is only better if we're dealing with a big enough single computation, not the frequency of it.
+That's because like I mentioned, there's a certain cost associated with "crossing the bridge" between JS and WASM
+
+Unfortunately for WASM, there's another hidden cost of it. I'm talking about the bundle size.
+While the size of Javascript function is negligible, the size of WASM build is 15.1 KiB for those two functions.
+
+## Sad truth
+
+Like I mentioned before, I'd like to focus more on potential real-world usages. So before we proceed let's do a quick thought experiment regarding what those might be:
+
+What performance bottleneck does an average frontend developer deal with? The short answer is - not a lot.
+In 2023 it's mostly to do with frameworks, and more specifically - bad usage of them.
+
+Maybe you've got a big table to render - that's a quite heavy task right? Maybe we could use WASM there?
+Unfortunately, the correct way to approach it is not to render the whole table at once using a more performant language - but to virtualize it.
+
+**So, if you wanted to know whether WASM can speed up your React/Svelte/Solid application - unfortunately, that's not really viable**.
+
+But this answer is pretty anticlimatic right? That's not what we're here for.
+Let's try to find benchmarks (or even benchmark stuff ourselves if possible)
+for something more computation-intensive, which can still be considered real-world usage.
+
+## Quest to find an improvement
+
+Let's look at tasks that would usually be delegated to the server because they would simply be not fast enough for the frontend.
+
+- FFMPEG video manipulation
+- PDF manipulation - it's pretty common to dynamically create PDFs on the web
+
+### FFMPEG
+
+Sadly, there is no pure JS implementation of FFMPEG that is NOT using WASM. There are some very old projects, but it would not be fair to compare them
+with more modern implementations. Luckily, if you're still curious how that benchmark would look like, look no further. I've mentioned
+[this awesome study comparing JS and WASM for different algorithms](https://weihang-wang.github.io/papers/imc21.pdf). `Table 10` shows FFMPEG benchmarks.
+
+<img src="/ffmpeg_bench.png" />
+
+### HTML to PDF
+
+The only two potential libraries are [wkhtmltopdf](https://wkhtmltopdf.org/) and [html2pdf.js](https://www.npmjs.com/package/html2pdf.js). Unfortunately, compiling
+wkhtmltopdf to WASM would be troublesome as it includes a lot of Qt (trust me, I've tried). [WASM-pdf](https://github.com/jussiniinikoski/WASM-pdf) could've been an
+okay WASM representative, but it's pretty barebones, and doesn't allow for converting HTML to PDF.
+
+So unfortunately there's no real way to bench these two against each other, as they do quite different things.
+One creates PDF from HTML, the other one takes an arbitrary JSON as input.
+The result would not give us a fair assessment of WASM, but the assessment of the approach of each library.
+Quite dissapointing.
+
+## Conclusion
+
+It's impossible to give a blanket statement whether you should incorporate drop-in WASM snippets.
+Truth be told, JS is pretty fast these days and has it's own solutions for any problems that came up over the years.
+You may gain some performance benefits by incorporating it, but if you so desperately need a faster language in the browser, it seems to me like
+there's a bigger chance you might have more major problems with your application.
+
+WASM really seems to be just a way to **enable** some functionalities. It's just a way for
+a browser to be another compile target rather than a fully disconnected platform.
+
+**As a javascript engineer you probably don't need WASM, and if you do - you'll know it.**
+With that being said, it's good to be _aware of it_ and what it enables.
+
+PS. I would totally use WASM to build some sick big data dashboards with https://github.com/finos/perspective
