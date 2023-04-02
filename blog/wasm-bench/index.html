@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="astro-BVZIHDZO">
+	<head>
+		<!-- Global Metadata --><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="generator" content="Astro v2.1.8">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://example.com/blog/wasm-bench/">
+
+<!-- Primary Meta Tags -->
+<title>WASM snippets inside JS</title>
+<meta name="title" content="WASM snippets inside JS">
+<meta name="description" content="WASM snippets inside JS">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.com/blog/wasm-bench/">
+<meta property="og:title" content="WASM snippets inside JS">
+<meta property="og:description" content="WASM snippets inside JS">
+<meta property="og:image" content="https://example.com/placeholder-social.jpg">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://example.com/blog/wasm-bench/">
+<meta property="twitter:title" content="WASM snippets inside JS">
+<meta property="twitter:description" content="WASM snippets inside JS">
+<meta property="twitter:image" content="https://example.com/placeholder-social.jpg">
+		
+	<link rel="stylesheet" href="/_astro/about.89d2038b.css" />
+<link rel="stylesheet" href="/_astro/about.3f4867e1.css" /></head>
+
+	<body class="astro-BVZIHDZO">
+		<header class="astro-3EF6KSR2">
+  <h2 class="astro-3EF6KSR2">
+    Szymon Wiszczuk
+  </h2>
+  <nav class="astro-3EF6KSR2">
+    <a href="/" class="astro-3EF6KSR2 astro-EIMMU3LG">
+	Home
+</a>
+    <a href="/blog" class="astro-3EF6KSR2 astro-EIMMU3LG">
+	Blog
+</a>
+    <!-- <HeaderLink href="/about">About</HeaderLink> // TODO: write an about section at some point -->
+    <a href="https://twitter.com/SzymonWiszczuk" class="astro-3EF6KSR2 astro-EIMMU3LG" target="_blank">
+	
+      Twitter
+    
+</a>
+    <a href="https://github.com/golota60" class="astro-3EF6KSR2 astro-EIMMU3LG" target="_blank">
+	
+      GitHub
+    
+</a>
+  </nav>
+</header>
+		<main class="astro-BVZIHDZO">
+			<article class="astro-BVZIHDZO">
+				<img width="720" height="360" src="/sun_tzu_wasm.png" alt="" class="astro-BVZIHDZO">
+				<h1 class="title astro-BVZIHDZO">WASM snippets inside JS</h1>
+				<time datetime="2023-04-01T22:00:00.000Z">
+	Apr 2, 2023
+</time>
+				
+				<hr class="astro-BVZIHDZO">
+				<h1>WASM snippets inside JS</h1><p>I believe WebAssembly (WASM) has really been a widely misunderstood technology.
+When it was first introduced, some people predicted that Javascript is going to die very soon,
+and few years later you could hear the exact opposite - that WASM doesn’t change anything and it will have no impact on current Javascript ecosystem.
+If you don’t know <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts">what WASM is</a> - the quick unprecise TLDR is that it’s a way to execute languages other than Javascript in the browser (or in node) via <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format">WAT</a>.</p>
+<p><a href="https://webassembly.org/docs/use-cases/">WebAssembly use cases</a> make it clear that it doesn’t want to replace Javascript, it just wants
+to empower developers to have an interface to execute code that’s different than Javascript with all it’s benefits and library ecosystems.</p>
+<p>So that’s it, right? Unless I want to do some very specific magic I shouldn’t care about this?</p>
+<p>I wanted to put that to the test. As a guy who likes both Rust and JS, I think WASM is the only bridge between both of these worlds, and want to know whether looking more into it is worth my while.
+And if it is, how can I benefit from it?</p>
+<p>There’s a lot of very insightful benchmarks, starting with <a href="https://00f.net/2023/01/04/webassembly-benchmark-2023">this awesome study of WASM runtimes</a>, <a href="https://weihang-wang.github.io/papers/imc21.pdf">this awesome study comparing JS and WASM for different algorithms</a>
+and ending with <a href="https://www.youtube.com/watch?v=4KtotxNAwME">Leptos creator talk about WASM frameworks</a> (not to mention HTTP 203 podcast, which also described WASM usages in <a href="https://squoosh.app/">squoosh</a>).</p>
+<p>But I just want to answer few simple questions - if I’m a web developer:</p>
+<ul>
+<li>Should I care about WASM?</li>
+<li>Should I introduce it in my codebase? If yes, how?</li>
+<li>What are the possible gains? Where those would even be?</li>
+</ul>
+<h2 id="the-setup">The setup</h2>
+<p>First, I think it’s pretty common knowledge that <a href="https://v8.dev/">V8</a> and <a href="https://www.cyberark.com/resources/threat-research-blog/the-mysterious-realm-of-javascriptcore">JavascriptCore</a> can be pretty performant if the task is repetitive,
+because JIT will do some great optimizations
+and our potential gains will be severely diminished.</p>
+<p>Second, the cost of “crossing the bridge” between WASM and Javascript. There’s a hidden cost in calling WASM - it’s related to browser implementations and the fact that JS encodes strings with UTF-16 while other
+programming language (including Rust) most commonly encode strings in UTF-8, so there’s a translation layer making string copying between WASM and JS quite costly.</p>
+<p>Third, I’m not going to be talking about WASM/JS frameworks and their performance. There’s plenty of benchmarks that frameworks authors do.
+I’m going to be exploring the idea of calling WASM snippets inside Javascript and whether there’s a performance benefit in doing that.
+If you’re interested about frameworks, please watch the Leptos creator talk about WASM frameworks - it’s really good and he dives deeper into this topic.</p>
+<h2 id="crossing-the-wasm-bridge">Crossing the WASM bridge</h2>
+<p>Let’s try to naively compute some prime numbers using Rust (compiled to WASM) and Javascript. We’re gonna use two algorithms</p>
+<ul>
+<li>Unoptimized brute force</li>
+<li>A heavily optimized <a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes</a> algorithm <a href="https://gist.github.com/glebm/440bbe2fc95e7abee40eb260ec82f85c">(gist)</a>.</li>
+</ul>
+
+<style>astro-island,astro-slot{display:contents}</style><script>(self.Astro=self.Astro||{}).load=a=>{(async()=>await(await a())())()},window.dispatchEvent(new Event("astro:load"));var l;{const c={0:t=>t,1:t=>JSON.parse(t,o),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(JSON.parse(t,o)),5:t=>new Set(JSON.parse(t,o)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(JSON.parse(t)),9:t=>new Uint16Array(JSON.parse(t)),10:t=>new Uint32Array(JSON.parse(t))},o=(t,s)=>{if(t===""||!Array.isArray(s))return s;const[e,n]=s;return e in c?c[e](n):void 0};customElements.get("astro-island")||customElements.define("astro-island",(l=class extends HTMLElement{constructor(){super(...arguments);this.hydrate=()=>{if(!this.hydrator||this.parentElement&&this.parentElement.closest("astro-island[ssr]"))return;const s=this.querySelectorAll("astro-slot"),e={},n=this.querySelectorAll("template[data-astro-template]");for(const r of n){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(const r of s){const i=r.closest(this.tagName);!i||!i.isSameNode(this)||(e[r.getAttribute("name")||"default"]=r.innerHTML)}const a=this.hasAttribute("props")?JSON.parse(this.getAttribute("props"),o):{};this.hydrator(this)(this.Component,a,e,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),window.removeEventListener("astro:hydrate",this.hydrate),window.dispatchEvent(new CustomEvent("astro:hydrate"))}}connectedCallback(){!this.hasAttribute("await-children")||this.firstChild?this.childrenConnectedCallback():new MutationObserver((s,e)=>{e.disconnect(),this.childrenConnectedCallback()}).observe(this,{childList:!0})}async childrenConnectedCallback(){window.addEventListener("astro:hydrate",this.hydrate);let s=this.getAttribute("before-hydration-url");s&&await import(s),this.start()}start(){const s=JSON.parse(this.getAttribute("opts")),e=this.getAttribute("client");if(Astro[e]===void 0){window.addEventListener(`astro:${e}`,()=>this.start(),{once:!0});return}Astro[e](async()=>{const n=this.getAttribute("renderer-url"),[a,{default:r}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),i=this.getAttribute("component-export")||"default";if(!i.includes("."))this.Component=a[i];else{this.Component=a;for(const d of i.split("."))this.Component=this.Component[d]}return this.hydrator=r,this.hydrate},s,this)}attributeChangedCallback(){this.hydrator&&this.hydrate()}},l.observedAttributes=["props"],l))}</script><astro-island uid="Z12Algd" data-solid-render-id="s0" component-url="/_astro/CodeSnippet.2f557106.js" component-export="default" renderer-url="/_astro/client.7901d217.js" props="{&quot;title&quot;:[0,&quot;Brute force JS&quot;],&quot;lang&quot;:[0,&quot;js&quot;],&quot;code&quot;:[0,&quot;export const jsBruteUnoptimized = (upperBound: number) =&gt; {\n  let primesAccumulator = [];\n  \n  for (let currNum = 1; currNum &lt; upperBound; currNum++) {\n    let divisibleNums = [];\n\n    for (let j = 1; j &lt; currNum; j++) {\n      if (currNum % j === 0) {\n        divisibleNums.push(true);\n      }\n    }\n\n    if (divisibleNums.length === 1) {\n      primesAccumulator.push(currNum);\n    }\n\n}\n\n};&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;CodeSnippet&quot;,&quot;value&quot;:true}" await-children=""><div data-hk="s00-0-0"><details data-hk="s00-0-1"><summary>Brute force JS</summary><p><div data-hk="s00-0-2"><code class="whitespace-pre-line block">export const jsBruteUnoptimized = (upperBound: number) => {
+  let primesAccumulator = [];
+  
+  for (let currNum = 1; currNum &lt; upperBound; currNum++) {
+    let divisibleNums = [];
+
+    for (let j = 1; j &lt; currNum; j++) {
+      if (currNum % j === 0) {
+        divisibleNums.push(true);
+      }
+    }
+
+    if (divisibleNums.length === 1) {
+      primesAccumulator.push(currNum);
+    }
+
+}
+
+};</code></div></p></details></div></astro-island>
+<astro-island uid="1slI7h" data-solid-render-id="s1" component-url="/_astro/CodeSnippet.2f557106.js" component-export="default" renderer-url="/_astro/client.7901d217.js" props="{&quot;title&quot;:[0,&quot;Brute force Rust (WASM)&quot;],&quot;lang&quot;:[0,&quot;rust&quot;],&quot;code&quot;:[0,&quot;pub fn primes_naive_slow(bound: usize) -&gt; Vec&lt;usize&gt; {\n    let mut primes_accumulator: Vec&lt;usize&gt; = Vec::new();\n    for curr_num in 1..bound {\n        let mut divisible_nums: Vec&lt;bool&gt; = Vec::new();\n        for diviser in 1..curr_num {\n            if curr_num % diviser == 0 {\n                divisible_nums.push(true);\n            }\n        }\n\n        if divisible_nums.len() == 1 {\n            primes_accumulator.push(curr_num);\n        }\n    }\n    primes_accumulator\n\n}&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;CodeSnippet&quot;,&quot;value&quot;:true}" await-children=""><div data-hk="s10-0-0"><details data-hk="s10-0-1"><summary>Brute force Rust (WASM)</summary><p><div data-hk="s10-0-2"><code class="whitespace-pre-line block">pub fn primes_naive_slow(bound: usize) -> Vec&lt;usize> {
+    let mut primes_accumulator: Vec&lt;usize> = Vec::new();
+    for curr_num in 1..bound {
+        let mut divisible_nums: Vec&lt;bool> = Vec::new();
+        for diviser in 1..curr_num {
+            if curr_num % diviser == 0 {
+                divisible_nums.push(true);
+            }
+        }
+
+        if divisible_nums.len() == 1 {
+            primes_accumulator.push(curr_num);
+        }
+    }
+    primes_accumulator
+
+}</code></div></p></details></div></astro-island>
+<astro-island uid="1xFFWt" data-solid-render-id="s2" component-url="/_astro/CodeSnippet.2f557106.js" component-export="default" renderer-url="/_astro/client.7901d217.js" props="{&quot;title&quot;:[0,&quot;Optimized sieve JS&quot;],&quot;lang&quot;:[0,&quot;js&quot;],&quot;code&quot;:[0,&quot;export const jsPrimeSieve = (upperBound: number) =&gt; {\n  let primes = [];\n  for (let i = 0; i &lt; upperBound + 1; i++) {\n    if (i === 2 || (i &amp; 1) !== 0) {\n      primes.push(true);\n      continue;\n    }\n    primes.push(false);\n  }\n  let num = 3;\n  while (num * num &lt;= upperBound) {\n    let j = num * num;\n    while (j &lt;= upperBound) {\n      primes[j] = false;\n      j += num;\n    }\n    num += 2;\n  }\n  primes.shift();\n  primes = primes\n    .map((e, i) =&gt; {\n      if (e) {\n        return i;\n      } else {\n        return;\n      }\n    })\n    .filter((e) =&gt; e);\n};&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;CodeSnippet&quot;,&quot;value&quot;:true}" await-children=""><div data-hk="s20-0-0"><details data-hk="s20-0-1"><summary>Optimized sieve JS</summary><p><div data-hk="s20-0-2"><code class="whitespace-pre-line block">export const jsPrimeSieve = (upperBound: number) => {
+  let primes = [];
+  for (let i = 0; i &lt; upperBound + 1; i++) {
+    if (i === 2 || (i &amp; 1) !== 0) {
+      primes.push(true);
+      continue;
+    }
+    primes.push(false);
+  }
+  let num = 3;
+  while (num * num &lt;= upperBound) {
+    let j = num * num;
+    while (j &lt;= upperBound) {
+      primes[j] = false;
+      j += num;
+    }
+    num += 2;
+  }
+  primes.shift();
+  primes = primes
+    .map((e, i) => {
+      if (e) {
+        return i;
+      } else {
+        return;
+      }
+    })
+    .filter((e) => e);
+};</code></div></p></details></div></astro-island>
+<astro-island uid="Z1orCfR" data-solid-render-id="s3" component-url="/_astro/CodeSnippet.2f557106.js" component-export="default" renderer-url="/_astro/client.7901d217.js" props="{&quot;title&quot;:[0,&quot;Optimized sieve Rust (WASM)&quot;],&quot;lang&quot;:[0,&quot;rust&quot;],&quot;code&quot;:[0,&quot;pub fn primes_sieve(bound: usize) -&gt; Vec&lt;usize&gt; {\n    let mut primes: Vec&lt;bool&gt; = \n      (0..bound + 1).map(|num| num == 2 || num &amp; 1 != 0).collect();\n    let mut num = 3usize;\n    while num * num &lt;= bound {\n        let mut j = num * num;\n        while j &lt;= bound {\n            primes[j] = false;\n            j += num;\n        }\n        num += 2;\n    }\n    primes\n        .into_iter()\n        .enumerate()\n        .skip(2)\n        .filter_map(|(i, p)| if p { Some(i) } else { None })\n        .collect::&lt;Vec&lt;usize&gt;&gt;()\n}&quot;]}" ssr="" client="load" opts="{&quot;name&quot;:&quot;CodeSnippet&quot;,&quot;value&quot;:true}" await-children=""><div data-hk="s30-0-0"><details data-hk="s30-0-1"><summary>Optimized sieve Rust (WASM)</summary><p><div data-hk="s30-0-2"><code class="whitespace-pre-line block">pub fn primes_sieve(bound: usize) -> Vec&lt;usize> {
+    let mut primes: Vec&lt;bool> = 
+      (0..bound + 1).map(|num| num == 2 || num &amp; 1 != 0).collect();
+    let mut num = 3usize;
+    while num * num &lt;= bound {
+        let mut j = num * num;
+        while j &lt;= bound {
+            primes[j] = false;
+            j += num;
+        }
+        num += 2;
+    }
+    primes
+        .into_iter()
+        .enumerate()
+        .skip(2)
+        .filter_map(|(i, p)| if p { Some(i) } else { None })
+        .collect::&lt;Vec&lt;usize>>()
+}</code></div></p></details></div></astro-island>
+<h3 id="one-big-calculation">One big calculation</h3>
+<p>Let’s make a big calculation - finding prime numbers up to 10 000 000 for a sieve, and up to 20 000 for brute force.</p>
+
+<script>(self.Astro=self.Astro||{}).visible=(s,c,n)=>{const r=async()=>{await(await s())()};let i=new IntersectionObserver(e=>{for(const t of e)if(t.isIntersecting){i.disconnect(),r();break}});for(let e=0;e<n.children.length;e++){const t=n.children[e];i.observe(t)}},window.dispatchEvent(new Event("astro:visible"));</script><astro-island uid="1aYiTj" data-solid-render-id="s4" component-url="/_astro/BigPrimes.bfe744f0.js" component-export="default" renderer-url="/_astro/client.7901d217.js" props="{&quot;bruteUpperBound&quot;:[0,20000],&quot;sieveUpperBound&quot;:[0,10000000],&quot;bruteTimes&quot;:[0,1],&quot;sieveTimes&quot;:[0,1]}" ssr="" client="visible" opts="{&quot;name&quot;:&quot;BigPrimesOnce&quot;,&quot;value&quot;:true}" await-children=""><div data-hk="s40-0"><div><button>Recalculate</button>Time for unoptimized brute JS: <!--#--><!--/--> ms</div><div><button>Recalculate</button>Time for unoptimized brute rust: <!--#--><!--/--> ms</div><div><button>Recalculate</button>Time for optimized sieve JS: <!--#--><!--/--> ms</div><div><button>Recalculate</button>Time for optimized sieve rust: <!--#--><!--/--> ms</div><div><button>Recalculate everything</button></div><!--#-->Loading chart...<!--/--></div></astro-island>
+
+<h3 id="a-lot-of-small-calculations">A lot of small calculations</h3>
+<p>Now let’s use the exact same algorithms, but for much smaller numbers executes way more times</p>
+<ul>
+<li>for bruteforce
+<ul>
+<li>prime numbers up to 100, 10 000x times</li>
+</ul>
+</li>
+<li>for optimized sieve
+<ul>
+<li>prime numbers up to 100, 100 000x times</li>
+</ul>
+</li>
+</ul>
+<astro-island uid="Z1Kxz6i" data-solid-render-id="s5" component-url="/_astro/BigPrimes.bfe744f0.js" component-export="default" renderer-url="/_astro/client.7901d217.js" props="{&quot;bruteUpperBound&quot;:[0,100],&quot;sieveUpperBound&quot;:[0,100],&quot;bruteTimes&quot;:[0,10000],&quot;sieveTimes&quot;:[0,100000]}" ssr="" client="visible" opts="{&quot;name&quot;:&quot;BigPrimesOnce&quot;,&quot;value&quot;:true}" await-children=""><div data-hk="s50-0"><div><button>Recalculate</button>Time for unoptimized brute JS: <!--#--><!--/--> ms</div><div><button>Recalculate</button>Time for unoptimized brute rust: <!--#--><!--/--> ms</div><div><button>Recalculate</button>Time for optimized sieve JS: <!--#--><!--/--> ms</div><div><button>Recalculate</button>Time for optimized sieve rust: <!--#--><!--/--> ms</div><div><button>Recalculate everything</button></div><!--#-->Loading chart...<!--/--></div></astro-island>
+<p>When you look at those brief results, you’ll see that the JS results are a little bit all over the place.
+But <strong>not for webassembly</strong>.
+It’s incredibly consistent.
+JS might have a good or a bad day, while webassembly times stay roughly the same.</p>
+<p>Another thing you should notice is that WASM is only better if we’re dealing with a big enough single computation, not the frequency of it.
+That’s because like I mentioned, there’s a certain cost associated with “crossing the bridge” between JS and WASM</p>
+<p>Unfortunately for WASM, there’s another hidden cost of it. I’m talking about the bundle size.
+While the size of Javascript function is negligible, the size of WASM build is 15.1 KiB for those two functions.</p>
+<h2 id="sad-truth">Sad truth</h2>
+<p>Like I mentioned before, I’d like to focus more on potential real-world usages. So before we proceed let’s do a quick thought experiment regarding what those might be:</p>
+<p>What performance bottleneck does an average frontend developer deal with? The short answer is - not a lot.
+In 2023 it’s mostly to do with frameworks, and more specifically - bad usage of them.</p>
+<p>Maybe you’ve got a big table to render - that’s a quite heavy task right? Maybe we could use WASM there?
+Unfortunately, the correct way to approach it is not to render the whole table at once using a more performant language - but to virtualize it.</p>
+<p><strong>So, if you wanted to know whether WASM can speed up your React/Svelte/Solid application - unfortunately, that’s not really viable</strong>.</p>
+<p>But this answer is pretty anticlimatic right? That’s not what we’re here for.
+Let’s try to find benchmarks (or even benchmark stuff ourselves if possible)
+for something more computation-intensive, which can still be considered real-world usage.</p>
+<h2 id="quest-to-find-an-improvement">Quest to find an improvement</h2>
+<p>Let’s look at tasks that would usually be delegated to the server because they would simply be not fast enough for the frontend.</p>
+<ul>
+<li>FFMPEG video manipulation</li>
+<li>PDF manipulation - it’s pretty common to dynamically create PDFs on the web</li>
+</ul>
+<h3 id="ffmpeg">FFMPEG</h3>
+<p>Sadly, there is no pure JS implementation of FFMPEG that is NOT using WASM. There are some very old projects, but it would not be fair to compare them
+with more modern implementations. Luckily, if you’re still curious how that benchmark would look like, look no further. I’ve mentioned
+<a href="https://weihang-wang.github.io/papers/imc21.pdf">this awesome study comparing JS and WASM for different algorithms</a>. <code>Table 10</code> shows FFMPEG benchmarks.</p>
+<img src="/ffmpeg_bench.png"/>
+<h3 id="html-to-pdf">HTML to PDF</h3>
+<p>The only two potential libraries are <a href="https://wkhtmltopdf.org/">wkhtmltopdf</a> and <a href="https://www.npmjs.com/package/html2pdf.js">html2pdf.js</a>. Unfortunately, compiling
+wkhtmltopdf to WASM would be troublesome as it includes a lot of Qt (trust me, I’ve tried). <a href="https://github.com/jussiniinikoski/WASM-pdf">WASM-pdf</a> could’ve been an
+okay WASM representative, but it’s pretty barebones, and doesn’t allow for converting HTML to PDF.</p>
+<p>So unfortunately there’s no real way to bench these two against each other, as they do quite different things.
+One creates PDF from HTML, the other one takes an arbitrary JSON as input.
+The result would not give us a fair assessment of WASM, but the assessment of the approach of each library.
+Quite dissapointing.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>It’s impossible to give a blanket statement whether you should incorporate drop-in WASM snippets.
+Truth be told, JS is pretty fast these days and has it’s own solutions for any problems that came up over the years.
+You may gain some performance benefits by incorporating it, but if you so desperately need a faster language in the browser, it seems to me like
+there’s a bigger chance you might have more major problems with your application.</p>
+<p>WASM really seems to be just a way to <strong>enable</strong> some functionalities. It’s just a way for
+a browser to be another compile target rather than a fully disconnected platform.</p>
+<p><strong>As a javascript engineer you probably don’t need WASM, and if you do - you’ll know it.</strong>
+With that being said, it’s good to be <em>aware of it</em> and what it enables.</p>
+<p>PS. I would totally use WASM to build some sick big data dashboards with <a href="https://github.com/finos/perspective">https://github.com/finos/perspective</a></p>
+			</article>
+		</main>
+		<footer class="astro-SZ7XMLTE">
+  &copy; 2023 Szymon Wiszczuk
+</footer>
+	</body></html>
