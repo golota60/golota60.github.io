@@ -32,7 +32,7 @@ import ProjectPreview from "../solid/ProjectPreview";
         projects.map(({ title, logo, description, githubLink, language }) => {
           return (
             <li>
-              <a>{title}</a>
+              <a href={githubLink}>{title}</a>
             </li>
           );
 
