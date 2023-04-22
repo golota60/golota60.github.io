@@ -1,6 +1,5 @@
 import clsx from "clsx";
-import { Component, createSignal, JSX, onMount, Show } from "solid-js";
-import { Hydration, NoHydration } from "solid-js/web";
+import { Component, createSignal, JSX, onMount } from "solid-js";
 
 interface Props {
   children: JSX.Element;

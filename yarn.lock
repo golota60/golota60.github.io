@@ -1712,6 +1712,11 @@ find-yarn-workspace-root2@1.2.16:
     micromatch "^4.0.2"
     pkg-dir "^4.2.0"
 
+fixelart@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/fixelart/-/fixelart-0.0.8.tgz#3c5622f0104025aba4a61fa5413c372ee399dc44"
+  integrity sha512-inZXzD5JsB6a5qfJEcZ4trjPymvnIsSaBQCfCKkbYrhYAhhIIw57gbZcKWV8cvo4ZzhePnsRIO/ishYD0sPNyg==
+
 format@^0.2.0:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/format/-/format-0.2.2.tgz#d6170107e9efdc4ed30c9dc39016df942b5cb58b"

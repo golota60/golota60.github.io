@@ -4,6 +4,8 @@ use wasm_bindgen::prelude::*;
 // allocator.
 #[cfg(feature = "wee_alloc")]
 #[global_allocator]
+
+
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 // This is for importing functions from JS into Rust - e.g. alert web browser api

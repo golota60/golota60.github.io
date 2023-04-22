@@ -21,6 +21,7 @@ const BigPrimesOnce = (props: Props) => {
   const [unoptimizedBruteRust, setUnoptimizedBruteRust] = createSignal<
     number | undefined
   >();
+
   const [unoptimizedBruteJs, setUnoptimizedBruteJs] = createSignal<
     number | undefined
   >();

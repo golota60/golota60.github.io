@@ -1,0 +1,212 @@
+---
+title: "Fixing AI generated pixelart"
+description: "Fixing AI generated pixelart"
+pubDate: "April 22 2023"
+---
+
+I've wanted to create a game in a pixelart style for quite some time now, but just didn't have a lot of time on my hands to really dive into the topic. There's a lot to know to create a game - starting with technicalities like picking an engine and ending with the artstyle - like creating even the simplest of assets(and a lot more than that!).
+
+I can get past the technical stuff, but I'm not particularily artsy.
+
+Coincidentally, I've been also playing around with [Midjourney](https://midjourney.com/home/). I've tried generating a lotta stuff, pixelart being one of them. I was mildly happy with the result, but there were some artifacts that needed some fixing.
+
+The artifacts varied a lot - but it looked like a vast majority of them could be fixed by some simple image math. So I've created [`fixelart`](https://github.com/golota60/fixelart), which is a simple library that fixes up a lot of those artifacts.
+
+Let's see an example of what this simple utility can do:
+This is an image generated with the prompt `2d pixelart girl portrait pixelart pixelart --v 5`(those `pixelart` repetitions are deliberate, to ensure the most pixel-arty output). You can see that it's not exactly pixelart - but it's close.
+
+<div class="w-full flex flex-col justify-center items-center">
+  <img class="h-auto max-w-[500px] max-h-full" src="/test-face.png" alt="a AI-generated pixelart girl" />
+  <p class="text-sm mt-0.5">Ad.1 Original Midjourney-generated image</p>
+</div>
+
+Here's some of the "fixed" output, based on a couple of simple algorithms
+
+
+<div class="w-full flex justify-center items-center">
+  <div class="w-full flex flex-col justify-center items-center">
+    <img class="h-auto" src="/test-face-majority.png" alt="a AI-generated pixelart girl" />
+    <p class="text-sm mt-0.5">Ad.2 Majority algorithm</p>
+  </div>
+  <div class="w-full flex flex-col justify-center items-center">
+    <img class="h-auto" src="/test-face-average.png" alt="a AI-generated pixelart girl" />
+    <p class="text-sm mt-0.5">Ad.3 Average of pixel colors(downscale)</p>
+  </div>
+</div>
+
+<div class="w-full flex justify-center items-center">
+  <div class="w-full flex flex-col justify-center items-center">
+    <img class="h-auto" src="/test-face-harmonic.png" alt="a AI-generated pixelart girl" />
+    <p class="text-sm mt-0.5">Ad.5 Harmonic mean</p>
+  </div>
+  <div class="w-full flex flex-col justify-center items-center">
+    <img class="h-auto" src="/test-face-geometric.png" alt="a AI-generated pixelart girl" />
+    <p class="text-sm mt-0.5">Ad.6 Geometric mean</p>
+  </div>
+</div>
+
+<div class="w-full flex justify-center items-center">
+  <div class="w-full flex flex-col justify-center items-center">
+    <img class="h-auto" src="/test-face-0.05.png" alt="a AI-generated pixelart girl" />
+    <p class="text-sm mt-0.5">Ad.7 5% top color algorithm</p>
+  </div>
+  <div class="w-full flex flex-col justify-center items-center">
+    <img class="h-auto" src="/test-face-0.1.png" alt="a AI-generated pixelart girl" />
+    <p class="text-sm mt-0.5">Ad.8 10% top color algorithm</p>
+  </div>
+</div>
+
+Too see the differences better, here's a version of preview that overlaps images
+
+import ImageOverlap from '../../solid/ImageOverlap.tsx';
+
+<ImageOverlap images={[
+  { title: "Original", path: "/test-face.png" },
+  { title: "Majority", path: "/test-face-majority.png" },
+  { title: "Average", path: "/test-face-average.png" },
+  { title: "Harmonic mean", path: "/test-face-harmonic.png" },
+  { title: "Geometric mean", path: "/test-face-geometric.png" },
+  { title: "5% top majority", path: "/test-face-0.05.png" },
+  { title: "10% top majority", path: "/test-face-0.1.png" },
+]} client:visible />
+
+All of this looks quite good, right? Here's a handful of information:
+
+- Midjourney's output is a png of 1024x1024.
+- Output is a 128-bit pixelart(8x8 of input pixels are used for computing an output pixel(1024/8=128))
+- All the code in available [in this repo](https://github.com/golota60/fixelart)
+
+If you want to play around with this tool yourself - I've <a href="/fixelart-playground" target="_blank">created a playground for it</a>
+
+Let's talk about how all of this works. It's actually very simple:
+
+1. The image is split into `outPixWidth` by `outPixHeight` chunks
+2. Then a simple algorithm(`strategy`) is being applied to each chunks
+3. Then the image is de-chunkified
+
+There are a couple of algorithms currently implemented:
+
+- `Strategies.AVERAGE` - take the [arithmetic mean](https://en.wikipedia.org/wiki/Arithmetic_mean) of colors in the blocks(which is basically downscaling the image)
+<div class="w-full flex justify-center">
+<img src="/arithmetic-mean.svg" class="w-64" />
+</div>
+
+- `Strategies.HARMONIC` - take the [harmonic mean](https://en.wikipedia.org/wiki/Harmonic_mean) of colors in the block
+<div class="w-full flex justify-center">
+<img src="/harmonic-mean.svg" class="w-64" />
+</div>
+
+- `Strategies.GEOMETRIC` - take the [geometric mean](https://en.wikipedia.org/wiki/Geometric_mean) of colors in the block
+<div class="w-full flex justify-center">
+<img src="/geometric-mean.svg" class="w-64" />
+</div>
+
+- `Strategies.MIDRANGE` - take the [midrange](https://en.wikipedia.org/wiki/Mid-range) of colors in the block
+<div class="w-full flex justify-center">
+<img src="/midrange.svg" class="w-64" />
+</div>
+
+- `Strategies.QUADRATIC` - take the [quadratic mean](https://en.wikipedia.org/wiki/Root_mean_square) of colors in the block
+<div class="w-full flex justify-center">
+<img src="/quadratic-mean.svg" class="w-64" />
+</div>
+
+- `Strategies.CUBIC` - take the [cubic mean](https://en.wikipedia.org/wiki/Cubic_mean) of colors in the block
+<div class="w-full flex justify-center">
+<img src="/cubic-mean.svg" class="w-64" />
+</div>
+
+- `Strategies.MAJORITY` - take the color that occurs the most often in the block(a [maximum](https://en.wikipedia.org/wiki/Maximum_and_minimum))
+- `Strategies.ALG(05|10|20|30|40|50|60|70|80|90)` - a mix; if a color is making up above X%, then take it, otherwise take the average
+
+This set of strategies could easily be expanded by algorithms that take into account not only pixels in one block, but also the surrounding blocks, which could provide different(possibly better) results.
+
+The library also provides a way to shrink the output to match the pixelart pixel to match the actual pixel size(yes, it's confusing)
+
+
+### More examples
+
+Let's see more examples with different input styles
+
+------
+
+Pixel width/height: 3
+<ImageOverlap images={[
+  { title: "Original", path: "/ship.png" },
+  { title: "Majority", path: "/ship-majority.png" },
+  { title: "Average", path: "/ship-average.png" },
+  { title: "Harmonic mean", path: "/ship-harmonic.png" },
+  { title: "Geometric mean", path: "/ship-geometric.png" },
+  { title: "5% top majority", path: "/ship-0.05.png" },
+  { title: "10% top majority", path: "/ship-0.1.png" },
+]} client:visible />
+
+
+A shotgun - notice how harmonic/geometric/quadratic means differ in color tones
+
+Pixel width/height: 6 
+<ImageOverlap images={[
+  { title: "Original", path: "/shotgun.png" },
+  { title: "Average", path: "/shotgun-average.png" },
+  { title: "Harmonic mean", path: "/shotgun-harmonic.png" },
+  { title: "Geometric mean", path: "/shotgun-geometric.png" },
+  { title: "Quadratic mean", path: "/shotgun-quadratic.png" },
+  { title: "Midrange", path: "/shotgun-midrange.png" },
+]} client:visible />
+
+
+Pixel width/height: 8 
+<ImageOverlap images={[
+  { title: "Original", path: "/blonde.png" },
+  { title: "Average", path: "/blonde-average.png" },
+  { title: "Harmonic mean", path: "/blonde-harmonic.png" },
+  { title: "Geometric mean", path: "/blonde-geometric.png" },
+  { title: "Quadratic mean", path: "/blonde-quadratic.png" },
+  { title: "Midrange", path: "/blonde-midrange.png" },
+  { title: "5% top majority", path: "/blonde-0.05.png" },
+]} client:visible />
+
+
+Sometimes Midjourney generates *almost* pixel perfect stuff with weird outlines - fixelart can fix that too.
+Notice how *5% top majority* algorithm can fix the art while preserving detail - taking just the majority has some artifacts.
+This image really shows that for each different style, different algorithms can shine.
+
+Pixel width/height: 8 
+<ImageOverlap images={[
+  { title: "Original", path: "/tree.png" },
+  { title: "Average", path: "/tree-average.png" },
+  { title: "Harmonic mean", path: "/tree-harmonic.png" },
+  { title: "Geometric mean", path: "/tree-geometric.png" },
+  { title: "Quadratic mean", path: "/tree-quadratic.png" },
+  { title: "Midrange", path: "/tree-midrange.png" },
+  { title: "5% top majority", path: "/tree-0.05.png" },
+  { title: "Majority", path: "/tree-majority.png" },
+]} client:visible />
+
+
+Pixel width/height: 4 
+<ImageOverlap images={[
+  { title: "Original", path: "/landscape.png" },
+  { title: "Average", path: "/landscape-average.png" },
+  { title: "Harmonic mean", path: "/landscape-harmonic.png" },
+  { title: "Geometric mean", path: "/landscape-geometric.png" },
+  { title: "Quadratic mean", path: "/landscape-quadratic.png" },
+  { title: "Midrange", path: "/landscape-midrange.png" },
+]} client:visible />
+
+
+
+### Ending notes
+
+Just as an ending note, I want to say that all of this isn't particularily innovative, but I wanted to show how well all of this works in combination with Midjourney and different rounding strategies. I've also noticed that other libraries which are supposed to "pixel-art" your stuff are not giving you any options to customize the behavior.
+
+Since the output AI-tools give are close enough to actual pixelart, the "pixelarted"(or [fixelart](https://github.com/golota60/fixelart)ed) output is not a pixel mess not resembling anything, but something that can look fairly good. Or atleast my untrained eye sees it as pretty good.
+
+I also wanted to show that with the rise of AI GAN tools, having a `generate` => `convert to pixelart` pipeline as a part of your prototyping might be viable, even if only to create a moodboard to get inspired.
+
+I'll probably experiment with something more than just means in the future - I think taking into account neighbouring blocks could really make a great algorithm.
+
+Lastly, If you enjoyed any of what I've written here, or you think the library or playground is cool, I'd appreciate a star on [the fixelart repo](https://github.com/golota60/fixelart), so I know if anyone's interested in seeing any further development of this tool. I'd also highly appreciate any feature requests - If through reading this at any point you thought "if only this library could also do XXX" - feel free to create an issue!
+
+Now, if you're still hungry for examples - [try fixelart yourself in the playground!](https://szymon.codes/fixelart-playground)
+
