@@ -17,6 +17,13 @@ export const projects: Array<Project> = [
     language: "Typescript",
   },
   {
+    title: "fixelart",
+    description: "Fix AI generated images",
+    logo: <img src="" class="w-10" />,
+    githubLink: "https://github.com/golota60/fixelart",
+    language: "Typescript",
+  },
+  {
     title: "termi-clicker",
     description: "In-terminal clicker game",
     logo: <span class="text-2xl">🤖</span>,
