@@ -1,0 +1,108 @@
+---
+title: "Rust for Cloudflare workers?"
+description: "Attempting to squeeze max performance"
+pubDate: "October 1 2023"
+heroImage: "/rustbust.png"
+---
+
+> Note: In this article, I'm using terms "Rust worker" and "WASM worker" interchangeably - since the performance relies both on WASM and the output of the Rust compiler, so none of these terms are entirely accurate, so I'm using there terms for simplicity.
+
+Recently, I've been doing a lot more work around CF workers and came across [workers-rs](https://github.com/cloudflare/workers-rs). My reaction to that information can be seen in the upper image. I've started googling - [this looked promising]( https://github.com/cloudflare/workers-rs/discussions/6). I've read the [rust sdk announcement](https://blog.cloudflare.com/workers-rust-sdk/) some time ago now, and was intrigued with the term "native support" - it looked awesome.
+
+Maybe there's some performance gains on the table here?
+
+> Note: One thing to keep in mind throughout this post - I'm looking at CF Workers not as a main platform where all my infrastructure lies in - only as a way to deploy code with exceptional network performance. If you're planning to be using CF Workers as your main infra - some of the thinking shown here might not align with what you're trying to achieve.
+
+### Jumping head first
+
+Reading through the readme and [FAQ](https://github.com/cloudflare/workers-rs#notes-and-faq), I've noticed a couple of strange things... why does the rust lib compile to `wasm32-unknown-unknown`? Have I been lied to? Is this just javascript in a WASM trenchcoat? We know that [CF workers use v8 under the hood](https://developers.cloudflare.com/workers/learning/how-workers-works/), so, we _should_ be able to just use Node.js benchmark and those would roughly overlap right? Well, not exactly - even though Node.js also uses V8 under the hood, [CF uses their own runtime](https://github.com/cloudflare/workerd), and it would be unfair to not give them a fair shake when it comes to performance. After all, [Deno](https://github.com/denoland/deno) seems to be faster than Node.js, even though both use V8.
+
+The other thing I've noticed is that it's going to be very easy to exceed [worker size limits](https://developers.cloudflare.com/workers/platform/limits/) with Rust.
+
+### Benchmark setup
+
+For the sake of this benchmark, let's build a "poor man's CMS", reliant on CF KV Store to get some configuration, and it'll manipulate the HTML from your application(serving static HTML). Why KV Store? Cause it's fast - not that it matters cause we will be mocking it so that the tests are more consistent.
+
+<div class="w-full flex justify-center">
+<img src="/rust-cf-arch.png" />
+</div>
+
+We will be implementing the exact same versions(as much as possible) of this CMS setup in both Rust and Javascript.
+For the sake of this experiment, I've created [this template page](/product) - we're going to be using it to test our CMS.
+
+Elements in the HTML, should be tagged via special `turbo-cms-tag`. The CF worker will look for all elements with this tag, and replace the text inside the tag with the value found in the config.
+
+Below is our source page and highlighted keys and values that we are going to be replacing with CMS values:
+
+<div class="w-full flex justify-center">
+<img src="/ui_map.png" />
+</div>
+
+We're going to be comparing Rust against Javascript implementation, and then see what and why is faster. You can find both implementations [here](https://github.com/golota60/worker-bench), but it's nothing complicated. 
+
+Also, we're going to be replacing the values with the key names, so correctly rewritten page should look like the following
+
+import RustWorkersBarChart, {RustWorkersSpoiler} from "../../solid/RustWorkersBarChart.tsx";
+
+<RustWorkersSpoiler client:load />
+
+### Benchmark
+
+Let's first establish how we're going to measure performance of naked "Hello world" workers, then the "CMS Handler" workers, discuss the initial results, then dive into the code and try to break everything down.
+
+So, we're going to be doing two kinds of comparisons - local and deployed. For Javascript version we're going to be using [html-rewriter](https://github.com/worker-tools/html-rewriter) to manipulate HTML, and for rust, it's going to be [lol-html](https://github.com/cloudflare/lol-html). This is probably going to throw a wrench into measuring pure runtime speed, but it's something we can take into account later.
+
+The goal is to replicate how realistically a developer would be using rust and JS to develop this project. Sure, you could probably find something faster/lighter for both JS/Rust, but I think it's pretty safe to say these two libraries are going to be the default go-to's for each language.
+
+For both local and deployed version, measuring calls to the worker via [autocannon](https://github.com/mcollina/autocannon)(60 second test(to reduce variables), 1 connection, no cold starts - `autocannon -c 1 -d 60 <URL>`). I will be running that test 5 times for each possibility, and taking the 2nd best outcome(discarding attempts with high latency). Also I'm going to be just calling a "normal"(non CMS enhanced) version of the site to see how much overhead CF adds on top.
+
+Measuring:
+- "Hello World" workers
+- "CMS handler" workers
+
+
+<RustWorkersBarChart
+    client:visible
+    datasetNumber={0}
+/>
+
+For empty worker, the JS version is just slightly faster, which would indicate that the initialization time is bigger for WASM("crossing the WASM bridge cost").
+But we can see something that might seem obvious in hindsight - once there's more workload on the worker, Rust version equalizes with javascript, and probably if you cram enough logic into the worker, WASM would even be slightly faster. 
+
+### Zooming in on the benefits
+
+So, from initial results it seems like the Rust version is going to scale up with more worload more elegantly than Javascript. Let's try to zoom in on that use case. Let's increase the HTML size arbitrarily - I'm going to use a lot bigger HTML(and, consequently, a lot bigger replace map), so that there's just a little bit more work to make a good case for WASM. I'm going to copy-paste the HTML we currently use 4 times, adjust the IDs(add `_<num>` suffixes) and the replacement maps. That was it's going to resemble a medium-size website more accurately. See it [here](/product-big).
+
+> Note: My hypothesis here is that with more workload, Rust will handle memory better, and it might allow it to gain an edge. Also JS's GC might kick in, which should be a consideration for bigger workers.
+
+Also, up until now we've been storing the replacement map as a object(js)/hashmap(rust), but more realistically, it's going to be stored as JSON string, which will have to be parsed inside the code. So let's have another version of the benchmark with deserialization cost taken into account.
+
+<RustWorkersBarChart
+    client:load
+    datasetNumber={1}
+/>
+
+Alright, so now WASM is faster! Unfortunately, only slightly.
+
+
+### Conclusions
+
+Since it seems like workerd doesn't do any magic to WASM performance, it doesn't make much sense to throw more stuff on top of this small benchmark.
+
+Unfortunately, unless you're doing some very heavy workload inside the worker, it doesn't really make much sense to use Rust. If you're planning to put something very performance-critical inside the worker, I think the bigger question should be - is the architecture I'm building making sense?
+
+Using Rust here isn't a no-downsides choice either - development in Rust simply will take more time, will need more specialized developers, and you'll need to know exactly what you're doing to squeeze every last bit of performance over JS.
+
+#### Considerations
+
+Couple of additional things to have in mind, some objective, some subjective and written down alongside development
+
+- Rust has loooong rebuild times compared to Javascript
+- Size of Rust worker - Rust binaries are quite large - for shown experiments, the gzipped binary size was 432 KiB 
+- Rust binaries exceeding 1024 KiB gzipped will have worse cold start performance - it's quite easy to hit that size
+- Dev env sometimes just didn't work - had to deploy to see what's wrong
+- It's just WASM after all, and it bears all it's inconveniences(e.g. logging via `console.log!()` macro instead of `println!()` or `dbg!()`)
+
+TLDR; to the question of this post - as with most things related to software development - **it depends**. It definitely is not a go-to purely because it takes a lot longer to implement stuff in Rust over JS(only partly because of the language; mainly because of the tooling) - it should be selected only for performance-critical stuff, where squeezing every last bit of performance is important.
+
+This was a small CMS we were building - if we extrapolate these findings with more complicated and bigger configurations(ie. harder to parse, more logic to add on top) and if we were really building some kind of a CMS with external configuration, main point of which would be exceptional performance at scale - **I would definitely consider using Rust**.
