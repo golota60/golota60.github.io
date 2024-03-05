@@ -1,0 +1,46 @@
+---
+title: "The lie of a package manager"
+description: ""
+pubDate: "March 05 2024"
+heroImage: "/the-semver-lie.png"
+---
+
+> This post is just a small rambling about a slight inconsistency in JS package managers.
+
+Imagine a common scenario - you start a new JS project. You probably install some `dependencies`, some `devDependencies`, write some code, have a eslint setup, maybe something more fancy. Here's there is an implicit assumption you're making - for every package you install, there's automatically `^` included before the version name. Well, you might know that this actually means "any version up until the major version of this package is totally alright for me to use". That's the **default behavior**.
+
+I'd go as far to say that it means: "This package that I'm using is following [semver](https://semver.org/) religiously".
+
+<div class="w-full flex justify-center flex-col items-center">
+<div>
+<img src="/npm-docs-roof.png" />
+</div>
+<span class="text-xs">1. Explanation from npm [docs](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#dependencies)</span>
+</div>
+
+Well, for the most popular and known packages this is a totally alright assumption to make. Usually, the maintainers really go out of their way not to make any breaking changes across minor versions. This is totally up to maintainers, and it's alright not to use semver - I mean, there's a good reason why people don't want to use it([this](https://gist.github.com/jashkenas/cbd2b088e20279ae2c8e) is a great article if you want to get deeper into the semver problems). But as a person installing the package, you are implicitly expected to know that for each package. And you simply can't know that.
+
+After some time, you decide to upgrade the dependencies of your app.
+```ts
+"dependencies": {
+    "package-one": "^3.7.5",
+    "package-two": "^2.5.5",
+    "package-three": "^0.2.1",
+    //...
+}
+```
+
+Here, you are presented with a document, supposedly saying what versions of each package your app uses. That's actually not true! Just by looking at a version you actually have *zero idea* what version you're actually using right now. Remember, by putting `^` in front of a version - you said "any version \< 3 is fine". You don't know what version did your package manager decide is "good".
+
+
+### Software versioning is hard
+
+Semver is not the cause of all this pain - it's simply the reality of software versioning. It's just hard. If we are not sure if someone is using semver, why put that `^` in front of a version? Why implicitly force each package and developer into this strategy? Your package manager doesn't know what's the update strategy of the package while installing it and it's silly to think it does.
+
+### The slightly less bad solution
+
+NPM or package managers cannot solve this(and should not solve this!), but they can definitely improve the state of things as they are currently. I suggest doing the following:
+
+Just add a new field, and allow the package to specify how it wants to be installed. Available options could be something like: `^`,`~`,`none`, `latest`, `*` and something more complicated for exact X versions - e.g. `lastXversions`. Then, when a consumer is installing your package - they install it with an appropriate version. This is quick, easy, and backwards compatible. Or simply remove `^` when installing.
+
+But then again, this is just me freaking out about mostly inconsequential thing. I just got bitten by it one too many times while upgrading large application dependencies.
