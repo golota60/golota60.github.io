@@ -10,6 +10,20 @@ export interface Project {
 
 export const projects: Array<Project> = [
   {
+    title: "oxytail",
+    description: "Idasen desk controller",
+    logo: <img src="/carrot.png" class="w-10" />,
+    githubLink: "https://github.com/golota60/oxytail",
+    language: "Rust",
+  },
+  {
+    title: "trayasen",
+    description: "Idasen desk controller",
+    logo: <img src="/carrot.png" class="w-10" />,
+    githubLink: "https://github.com/golota60/trayasen",
+    language: "Rust",
+  },
+  {
     title: "yayfetch",
     description: "System information",
     logo: <img src="/yayfetch.svg" class="w-10" />,
@@ -29,13 +43,6 @@ export const projects: Array<Project> = [
     logo: <span class="text-2xl">🤖</span>,
     githubLink: "https://github.com/golota60/termi-clicker",
     language: "Typescript",
-  },
-  {
-    title: "trayasen",
-    description: "Idasen desk controller",
-    logo: <img src="/carrot.png" class="w-10" />,
-    githubLink: "https://github.com/golota60/trayasen",
-    language: "Rust",
   },
   {
     title: "and a lot of small, less shiny tinkering projects",
