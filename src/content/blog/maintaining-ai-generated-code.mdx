@@ -1,0 +1,75 @@
+---
+title: "Nightmares of maintaining AI generated code"
+description: "How to ruin software development for yourself"
+pubDate: "December 16 2025"
+heroImage: "/revertception.jpeg"
+---
+
+> The LLM Revolution and its consequences have been a disaster for the programmer race.
+
+AI has really grown a lot into software developers' mindset and operations. In my experience, the developers
+are split into camps. They can roughly be described as:
+
+- AI zoomers
+    - They love all things related to AI. They are using Cursor agents, Claude code, full on vibe coding.
+- AI cautious adopters
+    - They don't wanna get left behind - and they wanna reap the rewards of using AI that they've heard so much about.
+    - So they use AI cautiously, but probably not super advanced AI agents, MCPs and such. Probably just copilot tabbing.
+- AI haters
+    - They believe AI is totally going against what software development is all about.
+
+I personally find myself somewhat between a cautious adopter with occasional "hater" flareups. As to why that is, I probably could write
+another thing or two about it, but - there's nothing more annoying than a developer serving their hot take on AI usage.
+And there's tons of that, so you as a reader, probably have your own opinions already. And I'm not here to change them.
+
+What I want to discuss is how I've noticed these developer trends affect code maintenance
+
+### I don't trust **your** code anymore
+
+Code reviews were never my favorite (and that's painfully common). But with AI, I can't trust anyone's code anymore,
+and it's really driven a wedge between me and code review motivation.
+
+Consider a scenario, that's really common - imagine you work in a project with many technologies and approaches used. 
+You're only one person - you don't remember every line of code. There are maybe places in code you're not really familiar with - and that's okay! And you're now reviewing a pull request that's touching all of that. 
+
+You see some `type`s created randomly, you see some
+utils here and there - do you _really_ trust that really needs to be there? How sure are you that the author of the pull request
+couldn't care less and just "tabbed" the autogeneration with copilot? How sure are you that you don't have a similar util that can be reused?
+How sure are you that the developer did their due diligence and all the newly added types are there because they are needed, 
+and not because it was just easier for the LLM to add them rather than adhere to what's already there? A developer would make their hack obvious - they would just `as any` the edge cases. Easy hack, and easy place to fix later on. And `as any` is basically a soft `FIXME`. But LLM **will want to trick you**.
+
+What I would boil down these questions to - is the **illusion of competence** that AI excels at. It's not real competence.
+And it often trickles down to the developers that use it. It creates a great illusion aimed directly at you - the code reviewer - to get tricked, and let the code go through. It counts on you trusting it to exploit that trust. Maybe that's a bit dramatic, but it rings true.
+
+Back to the example - I cannot give you the benefit of the doubt that `deduplicateNulls` or whatever function you created 
+makes sense. Likewise, I don't know if the new types and validators you created are really in line with everything else in the repository - I need to study _every line of your code and question everything at all times_. There might be a chance
+you succumbed to the 'tab' overlords. And all of that combined - makes code review a ton more tiring, 
+more distrustful and less exciting (and it wasn't really exciting to begin with!)
+
+### Destruction of true vibe coding
+
+Before what's now known as vibe coding - there was true vibe coding. You and other developers, working in a repo not bound by any rigid structure. You'd develop fast and merge faster - don't know what a function does during code review? You didn't need to. You trust your colleague and his skills - after all, even if the code structure was not ideal, it's probably a minor problem which can be fixed later easily.
+
+In these, usually early stages of repo development, you'd learn a lot. You'd also create a ton of dirty code, but you'd most likely stumble upon a novel solution, that for your exact project would make WAY more sense than using the old and boring solutions.
+
+Only after that you'd begin the long and uphill battle to standardize your repository - but with the deep knowledge of everything in your repo. And probably the standard you adopt would be way better than if you did that early on.
+
+### Standards to the rescue
+
+The solution for all these problems is unfortunately old as time. If your code adheres to strict standards - the code reviews are much easier. You eliminate the need for trust.
+
+Make your files consistent. Make your util structure known. Make your code as boring as it gets. These are the solutions.
+
+The only problem is they kill learning, creativity and fun problem solving in the early stages of the repo and they offload that "creativity" to LLMs. Except when they do it, you don't know it, and you don't understand it. You adopt all the negatives of not adhering to strict structures, but you get none of the benefits.
+
+But do you really think you can come up with a better set of standards with a vibe coded repo, instead of the one you created and "vibe coded" with your own wits?
+
+### Addressing the arguments
+
+If you read all of this - thank you. But if you disagreed at some points, I want to address the most common rebuttals I get when I share this view with other people - maybe you thought about one of them:
+
+- `I am way faster with an LLM, and I can provide way more value in the same amount of time with LLM help - yes the code is going to be worse, but the product is going to be there faster!`. 
+
+...are you sure you're faster? https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/ - it's a great study that suggests that some of the speed you think you might be experiencing - is only seen by you, and it's not really there - some food for thought
+
+- `I understand all the code in my repository!` - There are many approaches to software development. Some of them necessitate such rapid paces of development, that you need at some point to trust other colleagues with your team, and give up some control to maintain pace. If you're slow, it's insanely easy to maintain code quality, the solution there is just to be diligent.
